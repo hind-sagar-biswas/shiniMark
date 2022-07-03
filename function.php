@@ -8,12 +8,7 @@ class hind
         $dbuser = 'root';
         $dbpass = "";
         $dbname = 'hind';
-
-        /*$dbhost = 'sql311.epizy.com';
-        $dbuser = 'epiz_32068285';
-        $dbpass = "#ashed2004";
-        $dbname = 'epiz_32068285_shinimark';
-*/
+        
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
         if (!$this->conn) {

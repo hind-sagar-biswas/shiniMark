@@ -61,5 +61,5 @@
   ?>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.php">ShiniMark</a>
+    <a class="navbar-brand" href="index.php"><span style="color:#0d0200">Shini</span><span style="color:#fc2003">Mark<span></a>
   </nav>

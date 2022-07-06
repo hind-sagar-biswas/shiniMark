@@ -49,7 +49,7 @@ class hind
     }
     public function display_filtered_data($search_data, $category, $condition, $status, $sort, $order)
     {
-      $limit_query=null;
+      $limit_query=" ";
       $where_query=null;
       $order_query="ORDER BY $sort $order ";
 
@@ -84,7 +84,7 @@ class hind
         }
       }
 
-        $query = "$query $where_query $order_query";
+        $query = "$query $where_query $order_query $limit_query";
         /*echo "$query";
         $query = "SELECT * FROM hinds ORDER BY id DESC";*/
 

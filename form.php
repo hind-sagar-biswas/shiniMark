@@ -1,5 +1,5 @@
 <div class="container shadow d-flex justify-content-center mb-4 p-5 border col-sm ">
-  <form action="add.php" method="post">
+  <form action="add.php" method="post" autocomplete="off">
     <div class="input-group mb-1 mr-sm-1" id="time_holder" style="pointer-events: none; opacity: 0; visibility:hidden; width:0; height:0; position:absolute; top: -20px; left: -20px;">
       <div class="input-group-prepend">
         <div class="input-group-text bg-info text-white">1</div>
@@ -26,11 +26,11 @@
     </div>
 
     <div class="input-group mb-1 mr-sm-1">
-      <input type="number" class="form-control" name="current" placeholder="Current" required>
+      <input type="number" class="form-control" step="0.1" value="0" name="current" placeholder="Current" required>
     </div>
 
     <div class="input-group mb-1 mr-sm-1">
-      <input type="number" class="form-control" name="latest" placeholder="Latest" required>
+      <input type="number" class="form-control" step="0.1" value="1" name="latest" placeholder="Latest" required>
     </div>
 
     <div class="input-group mb-1 mr-sm-1">

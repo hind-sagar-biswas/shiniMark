@@ -18,7 +18,7 @@
   <!-- style -->
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <title>Hind's Project</title>
+  <title>ShiniMark | Personal Bookmark Site</title>
 </head>
 
 <body>
@@ -26,8 +26,38 @@
 
   $chiky = new hind();
   //get data from database
-  $hind = $chiky->display_data();
+
   //add_data
+
+  if (isset($_POST['filtered'])) {
+    $heading = "FILTERED BOOKMARKS";
+    $default_btn = `<div class="container d-flex justify-content-center">
+      <a href="index.php" class="btn btn-primary">DEFAULT</a>
+    </div>`;
+
+    $search_data = null;
+    $category = null;
+    $status = null;
+
+    if (isset($_POST['search'])) {
+      $search_data = $_POST['search'];
+    }
+    if (isset($_POST['category'])) {
+      $category = $_POST['category'];
+    }
+    if (isset($_POST['status'])) {
+      $status = $_POST['status'];
+    }
+
+    $condition = $_POST['condition'];
+    $order = $_POST['order'];
+    $sort = $_POST['sort'];
+    $hind = $chiky->display_filtered_data($search_data, $category, $condition, $status, $sort, $order);
+  } else {
+    $default_btn = "";
+    $heading = "BOOKMARKS";
+    $hind = $chiky->display_data();
+  }
   ?>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">

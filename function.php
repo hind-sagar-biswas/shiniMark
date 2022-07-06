@@ -8,7 +8,12 @@ class hind
         $dbuser = 'root';
         $dbpass = "";
         $dbname = 'hind';
-        
+
+        /*$dbhost = 'sql311.epizy.com';
+        $dbuser = 'epiz_32068285';
+        $dbpass = "#ashed2004";
+        $dbname = 'epiz_32068285_shinimark';
+*/
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
         if (!$this->conn) {
@@ -20,7 +25,7 @@ class hind
     public function add_data($data)
     {
 
-        $name = $data['name'];
+        $name = htmlspecialchars($data['name']);
         $link = $data['link'];
         $category = $data['category'];
         $current = $data['current'];
@@ -42,9 +47,47 @@ class hind
             return $returndata;
         }
     }
-    public function display_filtered_data($category, $condition, $status, $sort, $order)
+    public function display_filtered_data($search_data, $category, $condition, $status, $sort, $order)
     {
-        $query = "SELECT * FROM hinds WHERE category='$category' $condition status='$status' ORDER BY $sort $order";
+      $limit_query=null;
+      $where_query=null;
+      $order_query="ORDER BY $sort $order ";
+
+      $query="SELECT * FROM hinds ";
+
+      if ($search_data!=null) {
+        $where_query="WHERE name LIKE '%$search_data%' ";
+      }else {
+        $where_query=" ";
+      }
+
+      if ($category!=null || $status!=null) {
+        if ($where_query==" ") {
+          $where_query="WHERE ";
+        }elseif ($where_query!=" ") {
+          $where_query="$where_query AND ";
+        }
+        if ($category!=null && $status!=null){
+          $where_query="$where_query category='$category' $condition status='$status' ";
+        }elseif ($category!=null) {
+          $where_query="$where_query category='$category' ";
+        }else {
+          $where_query="$where_query status='$status' ";
+        }
+      }
+      if (isset($_GET['page'])) {
+        if ($_GET['page']!=null) {
+          $init_val=($_GET['page']-1)*50;
+          $limit_query="LIMIT $init_val, 50 ";
+        }else {
+          $limit_query="LIMIT 50 ";
+        }
+      }
+
+        $query = "$query $where_query $order_query";
+        /*echo "$query";
+        $query = "SELECT * FROM hinds ORDER BY id DESC";*/
+
         if (mysqli_query($this->conn, $query)) {
             $returndata = mysqli_query($this->conn, $query);
             return $returndata;
@@ -62,15 +105,16 @@ class hind
 
     public function update_data($data)
     {
-        $name = $data['name1'];
+        $name = htmlspecialchars($data['name1']);
         $category = $data['category1'];
+        $link = $data['link1'];
         $current = $data['current1'];
         $latest = $data['latest1'];
         $status = $data['status1'];
         $id = $data['id'];
         $time = $data['time1'];
 
-        $query = "UPDATE hinds SET name='$name', category='$category',current='$current',latest='$latest',status='$status',time='$time' WHERE id='$id'";
+        $query = "UPDATE hinds SET name='$name', link='$link', category='$category',current='$current',latest='$latest',status='$status',time='$time' WHERE id='$id'";
 
         if (mysqli_query($this->conn, $query)) {
             return "Information Updated Successfully!";

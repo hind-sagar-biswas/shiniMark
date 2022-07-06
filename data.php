@@ -1,8 +1,11 @@
-<div class="container-fluid mx-auto d-flex justify-content-center table-center">
+<?php echo "$default_btn"; ?>
+
+<div class="container-fluid mx-auto table-center">
   <center>
-    <h2> BOOKMARKS <a href="./add_bookmark.php"><i class="fas fa-bookmark"></i></a></h2>
+    <h2> <?php echo "$heading"; ?> <a href="./add_bookmark.php"><i class="fas fa-bookmark"></i></a></h2>
     <p>Stories: <?php echo mysqli_num_rows($hind); ?></p>
-    <table class="table table-responsive table-responsive-sm table-bordered table-sm">
+    <div class="table-responsive-sm">
+    <table class="table table-bordered table-sm">
       <thead class="text-center mx-auto bg-dark" style="font-size: 20px !important; color:aliceblue;">
         <tr>
           <th class="">
@@ -26,9 +29,14 @@
         </tr>
       </thead>
       <tbody class="text-center mx-auto">
-        <?php while ($hinds = mysqli_fetch_assoc($hind)) {   ?>
-          <tr>
-            <td class=""><?php if ($hinds['link'] != null) {
+        <?php while ($hinds = mysqli_fetch_assoc($hind)) {
+          $hinds['name']=htmlspecialchars_decode($hinds['name']); ?>
+          <tr class="">
+            <td class="<?php if ($hinds['current'] == '0') {
+              echo "table-secondary";
+            }elseif ($hinds['current'] < $hinds['latest']) {
+              echo "table-danger text-danger";
+            } ?>"><?php if ($hinds['link'] != null) {
                             echo "<a href='" . $hinds['link'] . "' class='mngLink'>" . $hinds['name'] . "</a>";
                           } else {
                             echo $hinds['name'];
@@ -98,5 +106,6 @@
         <?php } ?>
       </tbody>
     </table>
+  </div>
   </center>
 </div>

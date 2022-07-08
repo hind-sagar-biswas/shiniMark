@@ -9,7 +9,7 @@
     </div>
     <div class="btn-group">
       <div class="btn-group">
-        <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="category">
+        <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="category">
           <div class="dropdown-menu">
             <option selected disabled class="dropdown-item" hidden>CATEGORY</option>
             <option style="background-color:white;" value="Manga" class="dropdown-item">Manga</option>
@@ -22,7 +22,7 @@
       </div>
 
       <div class="btn-group">
-        <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="condition">
+        <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="condition">
           <div class="dropdown-menu">
             <option selected class="dropdown-item" value="AND">AND</option>
             <option style="background-color:white;" value="OR" class="dropdown-item">OR</option>
@@ -31,7 +31,7 @@
       </div>
 
       <div class="btn-group">
-        <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="status">
+        <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="status">
           <div class="dropdown-menu">
 
             <option selected disabled class="dropdown-item" hidden>STATUS</option>
@@ -47,7 +47,7 @@
     <div class="btn-group">
 
       <div class="btn-group">
-        <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="sort">
+        <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="sort">
           <div class="dropdown-menu">
             <option selected class="dropdown-item" value="id" hidden>SORT BY</option>
             <option style="background-color:white;" value="time" class="dropdown-item">TIME</option>
@@ -59,7 +59,7 @@
       </div>
 
       <div class="btn-group">
-        <select type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" name="order">
+        <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="order">
           <div class="dropdown-menu">
             <option selected class="dropdown-item" value="DESC" hidden>ORDER BY</option>
             <option style="background-color:white;" value="ASC" class="dropdown-item">ASC</option>
@@ -69,7 +69,7 @@
       </div>
 
     </div>
-    <button type="submit" name="filtered" class="btn btn-primary">GO</button>
+    <button type="submit" name="filtered" class="btn btn-danger">GO</button>
 </div>
 </form>
 </div>

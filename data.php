@@ -3,7 +3,7 @@
 <div class="container-fluid mx-auto table-center">
   <center>
     <h2> <?php echo "$heading"; ?> <a href="./add_bookmark.php"><i class="fas fa-bookmark"></i></a></h2>
-    <p>Stories: <?php echo mysqli_num_rows($hind); ?></p>
+    <p>Stories: <span class="text-danger"><?php echo mysqli_num_rows($hind); ?></span></p>
     <div class="table-responsive-sm">
     <table class="table table-bordered table-sm">
       <thead class="text-center mx-auto bg-dark" style="font-size: 20px !important; color:aliceblue;">
@@ -23,7 +23,7 @@
           <th class="">
             Status
           </th>
-          <th class="">
+          <th class="level-2">
             <i class="fas fa-tasks"></i>
           </th>
         </tr>
@@ -35,7 +35,7 @@
             <td class="<?php if ($hinds['current'] == '0') {
               echo "table-secondary";
             }elseif ($hinds['current'] < $hinds['latest']) {
-              echo "table-danger text-danger";
+              echo "table-danger text-white";
             } ?>"><?php if ($hinds['link'] != null) {
                             echo "<a href='" . $hinds['link'] . "' class='mngLink'>" . $hinds['name'] . "</a>";
                           } else {
@@ -74,7 +74,7 @@
                 echo "Completed";
               }; ?>
             </td>
-            <td>
+            <td class="level-2">
 
 
               <div class="btn-group mx auto text-center">
@@ -107,5 +107,16 @@
       </tbody>
     </table>
   </div>
+<div>
+<ul class="pagination">
+<?php
+$loop_count = 1;
+$page_count = ceil(mysqli_num_rows($hind) / 50);
+for ($loop_count = 1; $loop_count <= $page_count; $loop_count++) {
+  echo `<li class="page-item"><a class="page-link" href="index.php?page=$loop_count">$loop_count</a></li>`;
+}
+?>
+</ul>
+</div>
   </center>
 </div>

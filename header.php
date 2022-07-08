@@ -19,15 +19,20 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
   <title>ShiniMark | Personal Bookmark Site</title>
+
+<!-- Favicon -->
+	<meta name="msapplication-TileImage" content="assets/images/favicon.png"> <!-- Windows 8 -->
+	<!--[if IE]><link rel="shortcut icon" href="assets/images/favicon.png"><![endif]-->
+	<link rel="icon" type="image/png" href="assets/images/favicon.png">
+
 </head>
 
 <body>
-  <?php require 'function.php';
+  <?php 
+require 'function.php';
 
   $chiky = new hind();
-  //get data from database
-
-  //add_data
+  $default_btn = "";
 
   if (isset($_POST['filtered'])) {
     $heading = "FILTERED BOOKMARKS";

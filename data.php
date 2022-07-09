@@ -23,7 +23,7 @@
             <th class="">
               Status
             </th>
-            <th class="level-2">
+            <th class="level-2 level-1">
               <i class="fas fa-tasks"></i>
             </th>
           </tr>
@@ -31,7 +31,9 @@
         <tbody class="text-center mx-auto">
           <?php while ($hinds = mysqli_fetch_assoc($hind)) {
             $hinds['name'] = htmlspecialchars_decode($hinds['name']); ?>
-            <tr class="">
+            <tr class="<?php if ($hinds['category'] == "Hentai" || $hinds['category'] == "Pornhwa") {
+              echo "level-1";
+            } ?>">
               <td class="<?php if ($hinds['current'] == '0') {
                             echo "border border-danger bg-danger text-white";
                           } elseif ($hinds['current'] < $hinds['latest']) {
@@ -74,7 +76,7 @@
                   echo "Completed";
                 }; ?>
               </td>
-              <td class="level-2">
+              <td class="level-2 level-1">
 
 
                 <div class="btn-group mx auto text-center">

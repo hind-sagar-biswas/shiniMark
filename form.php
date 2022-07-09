@@ -6,7 +6,6 @@
       </div>
       <input type="number" class="form-control" id="time" name="time" placeholder="Time">
     </div>
-    <script src="assets/js/time.js"></script>
 
     <div class="input-group mb-1 mr-sm-1">
       <input type="text" class="form-control" name="name" placeholder="Name" required>

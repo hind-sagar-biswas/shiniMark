@@ -25,6 +25,11 @@
   <!--[if IE]><link rel="shortcut icon" href="assets/images/favicon.png"><![endif]-->
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -66,6 +71,89 @@
   }
   ?>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light  justify-content-between">
     <a class="navbar-brand" href="index.php"><img src="assets/images/logo.png" alt="ShiniMark logo" width="170px"></a>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link btn text-danger" href="#"><i class="fas fa-sign-in-alt"></i></a>
+      </li>
+    </ul>
   </nav>
+
+
+  <div id="form-container-main">
+    <center class="p-2">
+      <form class="login-form" name="login" autocomplete="off">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Username" id="login-un" name="login-un">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Enter password" value="" id="login-pwd" name="login-pwd">
+        </div>
+        <button class="btn btn-danger" onclick="login()">LOG IN <i class="fas fa-sign-in-alt"></i></button>
+      </form>
+    </center>
+  </div>
+
+  <script type="text/javascript">
+    var loginData = localStorage.getItem("loginData");
+    checkLogin();
+
+    function checkLogin() {
+      if (loginData != null) {
+        document.getElementById('form-container-main').style = "display: none; opacity: 0; pointer-events: none; width: 0; height: 0; z-index: -1; top: -100vh; left: -100vw;";
+
+        loginData = JSON.parse(loginData);
+        var userName = loginData['userName'];
+        var userAccess = loginData['accessLevel'];
+
+        if (userAccess == 0) {
+          document.getElementsByClassName('level-1').style = "display: none;";
+        }else if (userAccess == 1) {
+          document.getElementsByClassName('level-2').style = "display: none;";
+        }
+      }
+    }
+
+    function login() {
+      var form = document.forms["login"];
+      var inputUserName = form['login-un'].value;
+      var inputPassword = form['login-pwd'].value;
+      loginProcess(inputUserName, inputPassword);
+    }
+
+    function loginProcess(inputUserName, inputPassword) {
+      var access;
+      var loginSuccess = true;
+
+      if (inputUserName == "ShiniGami2004") {
+        if (inputPassword == "Dashed2004") {
+          access = 1;
+        }else if (inputPassword == "Hashed@2004") {
+          access = 2;
+        }else {
+          loginSuccess = false;
+        }
+      }else if (inputUserName == "Guest") {
+        if (inputPassword == "Root2004") {
+          access = 0;
+        }else {
+          loginSuccess = false;
+        }
+      }else {
+        loginSuccess = false;
+      }
+
+      if (loginSuccess) {
+        var userObject = {
+          userName: inputUserName,
+          userAccess: access
+        };
+        var jsonFormat = JSON.stringify(userObject);
+        localStorage.setItem("loginData", jsonFormat);
+      }
+      checkLogin();
+    }
+
+
+  </script>

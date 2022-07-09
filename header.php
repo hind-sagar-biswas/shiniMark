@@ -19,15 +19,19 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
   <title>ShiniMark | Personal Bookmark Site</title>
+
+  <!-- Favicon -->
+  <meta name="msapplication-TileImage" content="assets/images/favicon.png"> <!-- Windows 8 -->
+  <!--[if IE]><link rel="shortcut icon" href="assets/images/favicon.png"><![endif]-->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
 </head>
 
 <body>
-  <?php require 'function.php';
+  <?php
+  require 'function.php';
 
   $chiky = new hind();
-  //get data from database
-
-  //add_data
 
   if (isset($_POST['filtered'])) {
     $heading = "FILTERED BOOKMARKS";
@@ -54,12 +58,14 @@
     $sort = $_POST['sort'];
     $hind = $chiky->display_filtered_data($search_data, $category, $condition, $status, $sort, $order);
   } else {
-    $default_btn = "";
+    $default_btn = "<div class=\"container d-flex justify-content-center\">
+    <a href=\"index.php\" class=\"btn btn-danger\">DEFAULT</a>
+  </div>";
     $heading = "BOOKMARKS";
     $hind = $chiky->display_data();
   }
   ?>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.php"><span style="color:#0d0200">Shini</span><span style="color:#fc2003">Mark<span></a>
+    <a class="navbar-brand" href="index.php"><img src="assets/images/logo.png" alt="ShiniMark logo" width="170px"></a>
   </nav>

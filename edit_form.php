@@ -6,6 +6,7 @@
       </div>
       <input type="number" class="form-control" id="time" name="time1">
     </div>
+    <script src="assets/js/time.js"></script>
 
     <div class="input-group mb-1 mr-sm-1">
       <div class="input-group-prepend">

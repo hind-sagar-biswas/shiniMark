@@ -6,6 +6,7 @@
       </div>
       <input type="number" class="form-control" id="time" name="time" placeholder="Time">
     </div>
+    <script src="assets/js/time.js"></script>
 
     <div class="input-group mb-1 mr-sm-1">
       <input type="text" class="form-control" name="name" placeholder="Name" required>
@@ -41,7 +42,8 @@
         <option value="3">Canceled</option>
       </select>
     </div>
-    <button type="submit" name="submit" class="btn btn-success mb-1">ADD</button>
+    <button type="submit" name="submit" class="btn btn-danger mb-1">ADD</button>
+    <a href="index.php" name="home" class="btn btn-secondary mb-1">HOME</a>
   </form>
 </div>
 <br>

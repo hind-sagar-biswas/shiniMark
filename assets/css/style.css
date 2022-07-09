@@ -1,13 +1,41 @@
-a{
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+a {
   text-decoration: none !important;
 }
 
-.mngLink{
+.mngLink {
   color: #17a2b8;
   font-weight: bold;
 }
 
-.mngLink:hover{
+.mngLink:hover {
   color: rgb(227, 186, 4);
   text-decoration: none;
+}
+
+#form-container-main {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(225, 225, 225, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-container-main center {
+  background: rgba(30, 30, 30, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.30);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }

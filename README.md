@@ -62,7 +62,8 @@ This code has been licensed under `GNU AGPLv3` open source copyleft license.
 
 *Hind Sagar Biswas*
 
-**Website:** [https://hindbiswas.000webhostapp.com/](https://hindbiswas.000webhostapp.com/)
+**Website:** [hindbiswas.000webhostapp.com/](https://hindbiswas.000webhostapp.com/)
+**Repls:** [replit.com/@HindBiswas](https://replit.com/@HindBiswas)
 
 [![Author Facebook](https://img.shields.io/static/v1?label=facebook&message=hindsagar.biswas&style=social&logo=facebook)](https://m.facebook.com/hindsagar.biswas)
 [![Author Twitter](https://img.shields.io/static/v1?label=twitter&message=@hind_biswas&style=social&logo=twitter)](https://twitter.com/hind_biswas)

@@ -1,13 +1,17 @@
-a{
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+a {
   text-decoration: none !important;
 }
 
-.mngLink{
+.mngLink {
   color: #17a2b8;
   font-weight: bold;
 }
 
-.mngLink:hover{
+.mngLink:hover {
   color: rgb(227, 186, 4);
   text-decoration: none;
 }

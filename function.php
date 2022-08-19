@@ -4,15 +4,10 @@ class hind
     private $conn;
     public function __construct()
     {
-        /* $dbhost = 'localhost';
+        $dbhost = 'localhost';
         $dbuser = 'root';
         $dbpass = "";
-        $dbname = 'hind'; */
-
-        $dbhost = 'sql311.epizy.com';
-        $dbuser = 'epiz_32068285';
-        $dbpass = "GcXj7qAj48L";
-        $dbname = 'epiz_32068285_shinimark';
+        $dbname = 'hind';
 
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 

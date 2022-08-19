@@ -1,4 +1,7 @@
-<?php require 'header.php';
+<?php
+require 'function.php';
+
+$chiky = new hind();
 //delete data
 if(isset($_GET['status'])){
     if($_GET['status']='delete'){
@@ -9,4 +12,5 @@ if(isset($_GET['status'])){
         }
     }
 }
+require 'header.php';
 require 'footer.php';

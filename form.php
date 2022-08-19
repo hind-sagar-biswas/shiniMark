@@ -41,7 +41,8 @@
         <option value="3">Canceled</option>
       </select>
     </div>
-    <button type="submit" name="submit" class="btn btn-success mb-1">ADD</button>
+    <button type="submit" name="submit" class="btn btn-danger mb-1">ADD</button>
+    <a href="index.php" name="home" class="btn btn-secondary mb-1">HOME</a>
   </form>
 </div>
 <br>

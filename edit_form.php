@@ -9,18 +9,19 @@
 
     <div class="input-group mb-1 mr-sm-1">
       <div class="input-group-prepend">
-        <div class="input-group-text bg-danger text-white font-weight-bold">Link</div>
-      </div>
-      <input type="url" class="form-control" name="link1" value="<?php echo $hinds_data['link']; ?>" required>
-    </div>
-
-    <div class="input-group mb-1 mr-sm-1">
-      <div class="input-group-prepend">
         <div class="input-group-text bg-danger text-white font-weight-bold">Name</div>
       </div>
       <input type="text" class="form-control" name="name1" value="<?php echo $hinds_data['name']; ?>" required>
       <input type="hidden" name="id" value="<?php echo $hinds_data['id']; ?>">
     </div>
+
+
+        <div class="input-group mb-1 mr-sm-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-danger text-white font-weight-bold">Link</div>
+          </div>
+          <input type="url" class="form-control" name="link1" value="<?php echo $hinds_data['link']; ?>" required>
+        </div>
 
     <div class="input-group mb-1 mr-sm-1">
       <div class="input-group-prepend">

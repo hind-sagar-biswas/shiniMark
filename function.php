@@ -4,16 +4,16 @@ class hind
     private $conn;
     public function __construct()
     {
-        $dbhost = 'localhost';
+        /* $dbhost = 'localhost';
         $dbuser = 'root';
         $dbpass = "";
-        $dbname = 'hind';
+        $dbname = 'hind'; */
 
-        /*$dbhost = 'sql311.epizy.com';
+        $dbhost = 'sql311.epizy.com';
         $dbuser = 'epiz_32068285';
-        $dbpass = "#ashed2004";
+        $dbpass = "GcXj7qAj48L";
         $dbname = 'epiz_32068285_shinimark';
-*/
+
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
         if (!$this->conn) {
@@ -38,10 +38,9 @@ class hind
             return "Information Added Successfully";
         }
     }
-
-    public function display_data()
+    
+    public function display_data($query)
     {
-        $query = "SELECT * FROM hinds ORDER BY id DESC";
         if (mysqli_query($this->conn, $query)) {
             $returndata = mysqli_query($this->conn, $query);
             return $returndata;

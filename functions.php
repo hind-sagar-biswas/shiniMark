@@ -21,7 +21,7 @@ class ShiniMark
         }
     }
 
-    private $baseQuery = "SELECT b.name, b.link, c.category, b.current, b.latest, s.status, b.status_id
+    private $baseQuery = "SELECT b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
                           FROM `bookmarks` AS b
                         LEFT JOIN `categories` AS c
 	                        ON b.category_id = c.id
@@ -41,7 +41,7 @@ class ShiniMark
         return $base . $where . $order . $limit;
     }
 
-    public function add_data($data)
+    public function addData($data)
     {
 
         $name = htmlspecialchars($data['name']);
@@ -52,7 +52,7 @@ class ShiniMark
         $status = $data['status'];
         $categoryId = $this->getCategoryId($category);
         $statusId = $this->getStatusId($status);
-        $query = "INSERT INTO $this->bookmarkTable (name, link, category_id ,current ,latest ,status_id) VALUE('$name', '$link', '$categoryId', '$current','$latest', '$status')";
+        $query = "INSERT INTO $this->bookmarkTable (name, link, category_id ,current ,latest ,status_id) VALUE('$name', '$link', '$categoryId', '$current','$latest', '$statusId')";
 
         if (mysqli_query($this->conn, $query)) {
             return "Information Added Successfully";
@@ -130,7 +130,7 @@ class ShiniMark
         return array('Something went wrong');
     }
 
-    public function get_data($query)
+    public function getData($query)
     {
         if (mysqli_query($this->conn, $query)) {
             $bookmarks = mysqli_query($this->conn, $query);
@@ -144,6 +144,24 @@ class ShiniMark
     public function getMark($id)
     {
         $query = "$this->baseQuery WHERE id=$id";
+        if (mysqli_query($this->conn, $query)) {
+            $returnData = mysqli_fetch_assoc(mysqli_query($this->conn, $query));
+            return $returnData;
+        }
+    }
+
+    public function getCategory($id)
+    {
+        $query = "SELECT * FROM $this->categoryTable WHERE id=$id";
+        if (mysqli_query($this->conn, $query)) {
+            $returnData = mysqli_fetch_assoc(mysqli_query($this->conn, $query));
+            return $returnData;
+        }
+    }
+
+    public function getStatus($id)
+    {
+        $query = "SELECT * FROM $this->statusTable WHERE id=$id";
         if (mysqli_query($this->conn, $query)) {
             $returnData = mysqli_fetch_assoc(mysqli_query($this->conn, $query));
             return $returnData;

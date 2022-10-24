@@ -26,7 +26,7 @@ if ($_POST['get_data'] == 1) {
 
 <center>
     <h2> <?php echo "$heading"; ?>
-        <?php if (!$restriction) {  ?> <a href='./add_bookmark.php' class="text-danger"><i class="fas fa-bookmark"></i></a> <?php } ?>
+        <?php if ($restriction == 404) {  ?> <a href='./action.php?act=add&tar=bookmark' class="text-danger"><i class="fas fa-bookmark"></i></a> <?php } ?>
     </h2>
     <p>Stories: <span class="text-danger"><?php echo $bookmarksCount; ?></span></p>
 
@@ -53,6 +53,8 @@ if ($_POST['get_data'] == 1) {
         <table class="table table-bordered table-sm">
             <thead class="text-center mx-auto bg-dark" style="font-size: 20px !important; color:aliceblue;">
                 <tr>
+                    <th class="table-borderless">
+                    </th>
                     <th class="">
                         Name
                     </th>
@@ -86,11 +88,37 @@ if ($_POST['get_data'] == 1) {
                     foreach ($bookmarks as $bookmark) {  ?>
 
                         <tr>
-                            <td><?php echo $bookmark['name']; ?></td>
+                            <td></td>
+                            <td>
+                                <?php if ($bookmark['link'] != null || !empty($bookmark['link'])) {
+                                    echo "<a href='" . $bookmark['link'] . "' class='mngLink'>" . $bookmark['name'] . "</a>";
+                                } else {
+                                    echo $bookmark['name'];
+                                } ?>
+                            </td>
                             <td><?php echo $bookmark['category']; ?></td>
                             <td><?php echo $bookmark['current']; ?></td>
                             <td><?php echo $bookmark['latest']; ?></td>
-                            <td><?php echo $bookmark['status']; ?></td>
+                            <?php
+                            $statusTheme = 'primary';
+                            switch ($bookmark['status']) {
+                                case 'Completed':
+                                    $statusTheme = 'success';
+                                    break;
+                                case 'Ongoing':
+                                    $statusTheme = 'info';
+                                    break;
+                                case 'Season End':
+                                    $statusTheme = 'warning';
+                                    break;
+                                case 'Axed':
+                                    $statusTheme = 'danger';
+                                    break;
+                            }
+                            ?>
+                            <td class="<?php echo "table-$statusTheme text-$statusTheme"; ?>">
+                                <?php echo $bookmark['status']; ?>
+                            </td>
                             <?php if ($restriction == 404) { ?>
                                 <td>
                                     <div class='btn-group mx auto text-center'>
@@ -98,7 +126,7 @@ if ($_POST['get_data'] == 1) {
                                             <i class='fas fa-tasks'></i>
                                         </button>
                                         <div class='dropdown-menu p-1' style='border:none; padding:0'>
-                                            <a class='btn btn-sm btn-secondary' href="action.php?act=add&tar=bookmark&id=<?php echo $bookmark['id'] ?>">
+                                            <a class='btn btn-sm btn-secondary' href="action.php?act=update&tar=bookmark&id=<?php echo $bookmark['id'] ?>">
                                                 <i class='fas fa-edit'></i>
                                             </a>
                                             <a class='btn btn-sm btn-danger' href="run.php?target=bookmark&del=<?php echo $bookmark['id'] ?>">

@@ -3,7 +3,7 @@
 if (isset($_GET['act'])) {
     require './functions.php';
     $mark = new ShiniMark();
-
+ 
     $action = $_GET['act'];
     $target = $_GET['tar'];
     $type = '';

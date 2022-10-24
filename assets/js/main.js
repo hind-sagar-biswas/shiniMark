@@ -18,7 +18,6 @@ let pageNum = DEFAULT_PAGE;
 let heading = 'BOOKMARKS';
 
 let loginData = localStorage.getItem("loginData");
-console.log(loginData);
 
 function checkLogin() {
   if (loginData != 'null' && loginData == '404') {
@@ -35,19 +34,7 @@ function login() {
   user =  document.forms["login"]["login-un"].value;
   pwd = document.forms["login"]['login-pwd'].value;
 
-  if (user != "ShiniGami2004" || pwd != "#ashed2004") {
-    alert("Invalid usernaame or password! Try again.......")
-  }else{
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("loginData", "404");
-      loginData = localStorage.getItem("loginData");
-      checkLogin();
-    }else {
-      loggedIn = '404';
-    }
-    if(showData) displayData(where, order, loggedIn);
-    if(showData) displayFilterform(loggedIn);
-  }
+  tryLogin(user, pwd);
 }
 
 function logout() {
@@ -75,7 +62,6 @@ function getFormData() {
 function displayData(where_clause, order_clause, loggedState) {
   if (where_clause == '') where_clause = "none";
   let send_clause = `get_data=1&where_clause=${where_clause}&order_clause=${order_clause}&heading=${heading}&restriction=${loggedState}&page=${pageNum}`;
-  console.log(send_clause);
   xhttp.onload = function() {
     document.getElementById("data-container").innerHTML = this.responseText;
   }
@@ -92,6 +78,27 @@ function displayFilterform(loggedState) {
   xhttp.open("POST", "filterform.php");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(`get-filterform=1&restriction=${loggedState}`);
+}
+
+function tryLogin(user, password) {
+	xhttp.onload = function () {
+		if (this.responseText != '1') {
+			alert("Invalid usernaame or password! Try again.......");
+		} else {
+			if (typeof Storage !== "undefined") {
+				localStorage.setItem("loginData", "404");
+				loginData = localStorage.getItem("loginData");
+				checkLogin();
+			} else {
+				loggedIn = "404";
+			}
+			if (showData) displayData(where, order, loggedIn);
+			if (showData) displayFilterform(loggedIn);
+		}
+	};
+	xhttp.open("POST", "login.php");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(`login=1&user=${user}&password=${password}`);
 }
 
 function filterData() {

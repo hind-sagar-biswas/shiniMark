@@ -282,4 +282,13 @@ class ShiniMark
             return True;
         }
     }
+
+    public function login($user, $password)
+    {
+        $query = "SELECT * FROM admin_info WHERE username = '$user'";
+        if (mysqli_query($this->conn, $query)) {
+            $data = mysqli_fetch_assoc(mysqli_query($this->conn, $query));
+            return password_verify($password, $data['password']);
+        }
+    }
 }

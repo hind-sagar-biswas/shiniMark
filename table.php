@@ -50,10 +50,12 @@ if ($_POST['get_data'] == 1) {
 
 
     <div class="table-responsive-sm">
-        <table class="table table-bordered table-sm">
+        <table class="table table-bordered table-hover table-sm">
+            <!-- Table head part -->
             <thead class="text-center mx-auto bg-dark" style="font-size: 20px !important; color:aliceblue;">
                 <tr>
-                    <th class="table-borderless">
+                    <th class="">
+                        <i class="fas fa-eye"></i>
                     </th>
                     <th class="">
                         Name
@@ -77,6 +79,8 @@ if ($_POST['get_data'] == 1) {
                     <?php } ?>
                 </tr>
             </thead>
+
+            <!-- Table body part -->
             <tbody class="text-center mx-auto">
                 <?php if (!$bookmarks) {  ?>
                     <tr>
@@ -88,17 +92,45 @@ if ($_POST['get_data'] == 1) {
                     foreach ($bookmarks as $bookmark) {  ?>
 
                         <tr>
-                            <td></td>
+                            <!-- Reading status badges -->
                             <td>
+                                <?php
+                                $badgeStyle = 'primary';
+                                $badgeText = '';
+
+                                if ($bookmark['current'] == 0) {
+                                    $badgeStyle = 'danger';
+                                    $badgeText = '<i class="fas fa-pause"></i>';
+                                } elseif ($bookmark['current'] == $bookmark['latest']) {
+                                    $badgeStyle = 'secondary';
+                                    $badgeText = '<i class="fas fa-check"></i>';
+                                } else {
+                                    $badgeStyle = 'warning';
+                                    $badgeText = '<i class="fas fa-play"></i>';
+                                }
+
+                                echo "<span class='badge badge-$badgeStyle'>$badgeText</span>";
+                                ?>
+                            </td>
+
+                            <!-- Bookmark titles -->
+                            <td align="left">
+                                &nbsp;&nbsp;
                                 <?php if ($bookmark['link'] != null || !empty($bookmark['link'])) {
                                     echo "<a href='" . $bookmark['link'] . "' class='mngLink'>" . $bookmark['name'] . "</a>";
                                 } else {
                                     echo $bookmark['name'];
                                 } ?>
                             </td>
+
+                            <!-- Category column -->
                             <td><?php echo $bookmark['category']; ?></td>
+
+                            <!-- Current and Latest Chapters -->
                             <td><?php echo $bookmark['current']; ?></td>
                             <td><?php echo $bookmark['latest']; ?></td>
+
+                            <!-- Status column -->
                             <?php
                             $statusTheme = 'primary';
                             switch ($bookmark['status']) {

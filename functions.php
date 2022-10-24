@@ -225,22 +225,19 @@ class ShiniMark
         $link = $data['link'];
         switch ($data['category']) {
             case 'Manga':
-                $category = 9;
+                $category = 1;
                 break;
             case 'Manhwa':
-                $category = 10;
+                $category = 2;
                 break;
             case 'Manhua':
-                $category = 11;
+                $category = 3;
                 break;
             case 'Hentai':
-                $category = 12;
+                $category = 4;
                 break;
             case 'Pornhwa':
-                $category = 13;
-                break;
-            default:
-                $category = 9;
+                $category = 5;
                 break;
         }
         $current = $data['current'];

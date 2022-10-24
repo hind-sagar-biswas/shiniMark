@@ -32,7 +32,7 @@ if (isset($_POST['get-filterform'])) {
                     <div class="btn-group">
                         <a href="./action.php?act=add&tar=category">
                             <button type="button" name="filtered" class="btn btn-danger">
-                                <strong>+</strong>
+                                <i class="fas fa-plus-circle"></i>
                             </button>
                         </a>
                     </div>

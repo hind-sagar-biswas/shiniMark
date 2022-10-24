@@ -8,5 +8,4 @@ if (isset($_POST['login']) && $_POST['login'] == 1) {
     } else {
         echo 0;
     }
-    
 }

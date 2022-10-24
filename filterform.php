@@ -30,7 +30,7 @@ if (isset($_POST['get-filterform'])) {
                 <div class="btn-group">
                     <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="category">
                         <div class="dropdown-menu">
-                            <option selected disabled class="dropdown-item" hidden>CATEGORY</option>
+                            <option selected disabled class="dropdown-item" value="none" hidden>CATEGORY</option>
                             <option style="background-color:white;" class="dropdown-item" value="none">NONE</option>
                             <?php
                             foreach ($categories as $category) { ?>
@@ -76,7 +76,7 @@ if (isset($_POST['get-filterform'])) {
                             <option style="background-color:white;" class="dropdown-item" value="none">NONE</option>
                             <option style="background-color:white;" class="dropdown-item" value="catched_up">CATCHED UP</option>
                             <option style=" background-color:white;" class="dropdown-item" value="reading">READING</option>
-                            <option style=" background-color:white;" class="dropdown-item" value=not_started">NOT STARTED</option>
+                            <option style=" background-color:white;" class="dropdown-item" value="not_started">NOT STARTED</option>
                         </div>
                     </select>
                 </div>

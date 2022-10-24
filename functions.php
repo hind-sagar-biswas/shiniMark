@@ -21,7 +21,7 @@ class ShiniMark
         }
     }
 
-    private $baseQuery = "SELECT b.id b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
+    private $baseQuery = "SELECT b.id, b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
                           FROM `bookmarks` AS b
                         LEFT JOIN `categories` AS c
 	                        ON b.category_id = c.id
@@ -33,10 +33,10 @@ class ShiniMark
         return $this->baseQuery;
     }
 
-    public function getQuery($base = '', $where = '', $order = 'ORDER BY b.update_time DESC', $limit = 'LIMIT 50')
+    public function getQuery($base = '', $where = ' ', $order = 'ORDER BY b.update_time DESC', $limit = 'LIMIT 50')
     {
         $base = (empty($base)) ? $this->baseQuery : $base . ' ' ;
-        $order = (empty($order)) ? 'ORDER BY b.id DESC ' : $order . ' ';
+        $order = (empty($order)) ? ' ORDER BY b.id DESC ' : $order . ' ';
 
         return $base . $where . $order . $limit;
     }

@@ -1,4 +1,5 @@
 <?php
+$pageTitle = 'ShiniMark | Personal Bookmark Site';
 require './templates/header.php';
 ?>
 
@@ -7,7 +8,7 @@ require './templates/header.php';
 <div id="data-container" class="container-fluid mx-auto table-center"></div>
 
 <script>
-    const showData = true;
+    const show = true;
 </script>
 <script type="text/javascript" src="assets/js/main.js"></script>
 

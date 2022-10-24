@@ -1,6 +1,7 @@
 const xhttp = new XMLHttpRequest();
 const DEFAULT_LOG = '0';
 const DEFAULT_PAGE = "1";
+const showData = true;
 
 //SELECT
 let loginBtn = document.getElementById('login-button');
@@ -9,9 +10,9 @@ let loginBtnCont = document.getElementById('login-button-container');
 let logoutBtnCont = document.getElementById('logout-button-container');
 
 let user, pwd;  // marked
-let searchTerm, fCategory, fCondition, fStatus, fReadingStatus, fSortBy, fOrder; // new
+let searchTerm, fCategory, fCondition, fStatus, fReadingStatus, fSortBy, fOrder;
 let where = "";
-let order = "ORDER BY b.update_time DESC";
+let order = " ORDER BY b.update_time DESC ";
 let loggedIn = DEFAULT_LOG;
 let pageNum = DEFAULT_PAGE;
 let heading = 'BOOKMARKS';
@@ -30,7 +31,7 @@ function checkLogin() {
   }
 }
 
-function login(show) {
+function login() {
   user =  document.forms["login"]["login-un"].value;
   pwd = document.forms["login"]['login-pwd'].value;
 
@@ -44,12 +45,12 @@ function login(show) {
     }else {
       loggedIn = '404';
     }
-    if(show) displayData(where, order, loggedIn);
-    if(show) displayFilterform(loggedIn);
+    if(showData) displayData(where, order, loggedIn);
+    if(showData) displayFilterform(loggedIn);
   }
 }
 
-function logout(show) {
+function logout() {
   if (typeof(Storage) !== "undefined") {
       localStorage.setItem("loginData", "0");
       loginData = localStorage.getItem("loginData");
@@ -57,8 +58,8 @@ function logout(show) {
   }
   loggedIn = '0';
 
-  if(show) displayData(where, order, loggedIn);
-  if(show) displayFilterform(loggedIn);
+  if(showData) displayData(where, order, loggedIn);
+  if(showData) displayFilterform(loggedIn);
 }
 
 function getFormData() {
@@ -72,22 +73,21 @@ function getFormData() {
 }
 
 function displayData(where_clause, order_clause, loggedState) {
+  if (where_clause == '') where_clause = "none";
+  let send_clause = `get_data=1&where_clause=${where_clause}&order_clause=${order_clause}&heading=${heading}&restriction=${loggedState}&page=${pageNum}`;
+  console.log(send_clause);
   xhttp.onload = function() {
     document.getElementById("data-container").innerHTML = this.responseText;
   }
   xhttp.open("POST", "table.php");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send(`get_data=1&
-              where_clause=${where_clause}&
-              order_clause=${order_clause}&
-              heading=${heading}&
-              restriction=${loggedState}&
-              page=${pageNum}`);
+  xhttp.send(send_clause);
 }
 
 function displayFilterform(loggedState) {
   xhttp.onload = function() {
     document.getElementById("filter-form-container").innerHTML = this.responseText;
+    displayData(where, order, loggedIn);
   }
   xhttp.open("POST", "filterform.php");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -101,7 +101,7 @@ function filterData() {
   let where_query = null;
   let order_query = null;
   if (fSortBy != "none") {
-		order_query = `ORDER BY b.${fSortBy} ${fOrder} `;
+		order_query = ` ORDER BY b.${fSortBy} ${fOrder} `;
 	}
 
   if (searchTerm.length > 0) {
@@ -139,10 +139,10 @@ function filterData() {
 				readStatusCondition = "b.latest = b.current";
 				break;
 			case "reading":
-				readStatusCondition = "(b.latest < b.current AND b.latest > 0)";
+				readStatusCondition = "(b.current < b.latest AND b.current > 0)";
 				break;
 			case "not_started":
-				readStatusCondition = "b.latest = 0";
+				readStatusCondition = "b.current = 0";
 				break;
 
 			default:
@@ -166,7 +166,7 @@ function blockSubmit() {
 
 function getDefault(){
   where = '';
-  order = "ORDER BY b.update_time DESC";
+  order = " ORDER BY b.update_time DESC ";
   displayData(where, order, loggedIn);
   displayFilterform(loggedIn);
 }
@@ -180,8 +180,7 @@ function pageChange(page) {
 /// RUNS
 checkLogin();
 if (showData) {
-  displayData(where, order, loggedIn);
   displayFilterform(loggedIn);
 }
-loginBtn.addEventListener("click", login(showData));
-logoutBtn.addEventListener("click", logout(showData));
+loginBtn.addEventListener("click", login);
+logoutBtn.addEventListener("click", logout);

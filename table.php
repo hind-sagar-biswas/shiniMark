@@ -1,8 +1,10 @@
 <?php
-if (isset($_POST['get_data']) && $_POST['get_data'] == 1) {
+if ($_POST['get_data'] == 1) {
     $restriction = intval($_POST['restriction']);
     $page = (!isset($_POST['page'])) ? 1 : intval($_POST['page']);
     $heading = $_POST['heading'];
+
+    $where_clause = ($_POST['where_clause'] == 'none') ? ' ' : $_POST['where_clause'];
 
     $bottomLimit = ($page - 1) * 50;
     $topLimit = $page * 50;
@@ -12,8 +14,8 @@ if (isset($_POST['get_data']) && $_POST['get_data'] == 1) {
     $mark = new ShiniMark();
 
     $baseQuery = $mark->getBaseQuery();
-    $query = $mark->getQuery($baseQuery, $_POST['where_clause'], $_POST['order_clause'], $limitClause);
-    $queryForCount = $mark->getQuery('SELECT id FROM bookmarks AS b ', $_POST['where_clause'], $_POST['order_clause'], '');
+    $query = $mark->getQuery($baseQuery, $where_clause, $_POST['order_clause'], $limitClause);
+    $queryForCount = $mark->getQuery('SELECT id FROM bookmarks AS b ', $where_clause, $_POST['order_clause'], '');
 
     $bookmarks = $mark->getBookmarkList($query);
     $bookmarksCount = $mark->getBookmarkCount($queryForCount);
@@ -33,7 +35,7 @@ if (isset($_POST['get_data']) && $_POST['get_data'] == 1) {
             $loop_count = 1;
             $page_count = ceil($bookmarksCount / 50);
             for ($loop_count = 1; $loop_count <= $page_count; $loop_count++) {
-                if ($loop_count == $_POST['p']) {
+                if ($loop_count == $_POST['page']) {
                     $active_class = "bg-danger text-white";
                 } else {
                     $active_class = "text-danger";
@@ -84,8 +86,8 @@ if (isset($_POST['get_data']) && $_POST['get_data'] == 1) {
                         <tr>
                             <td><?php echo $bookmark['name']; ?></td>
                             <td><?php echo $bookmark['category']; ?></td>
-                            <td><?php echo $bookmark['latest']; ?></td>
                             <td><?php echo $bookmark['current']; ?></td>
+                            <td><?php echo $bookmark['latest']; ?></td>
                             <td><?php echo $bookmark['status']; ?></td>
                             <?php if (!$restriction) { ?>
                                 <td>
@@ -119,7 +121,7 @@ if (isset($_POST['get_data']) && $_POST['get_data'] == 1) {
             $loop_count = 1;
             $page_count = ceil($bookmarksCount / 50);
             for ($loop_count = 1; $loop_count <= $page_count; $loop_count++) {
-                if ($loop_count == $_POST['p']) {
+                if ($loop_count == $_POST['page']) {
                     $active_class = "bg-danger text-white";
                 } else {
                     $active_class = "text-danger";

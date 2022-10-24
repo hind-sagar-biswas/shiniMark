@@ -12,7 +12,7 @@ let logoutBtnCont = document.getElementById('logout-button-container');
 let user, pwd;  // marked
 let searchTerm, fCategory, fCondition, fStatus, fReadingStatus, fSortBy, fOrder;
 let where = "";
-let order = " ORDER BY b.update_time DESC ";
+let order = " ORDER BY b.id DESC ";
 let loggedIn = DEFAULT_LOG;
 let pageNum = DEFAULT_PAGE;
 let heading = 'BOOKMARKS';
@@ -62,6 +62,7 @@ function getFormData() {
 function displayData(where_clause, order_clause, loggedState) {
   if (where_clause == '') where_clause = "none";
   let send_clause = `get_data=1&where_clause=${where_clause}&order_clause=${order_clause}&heading=${heading}&restriction=${loggedState}&page=${pageNum}`;
+  console.log(send_clause);
   xhttp.onload = function() {
     document.getElementById("data-container").innerHTML = this.responseText;
   }
@@ -173,7 +174,7 @@ function blockSubmit() {
 
 function getDefault(){
   where = '';
-  order = " ORDER BY b.update_time DESC ";
+  order = " ORDER BY b.id DESC ";
   displayData(where, order, loggedIn);
   displayFilterform(loggedIn);
 }

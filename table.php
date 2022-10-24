@@ -117,7 +117,7 @@ if ($_POST['get_data'] == 1) {
                             <td align="left">
                                 &nbsp;&nbsp;
                                 <?php if ($bookmark['link'] != null || !empty($bookmark['link'])) {
-                                    echo "<a href='" . $bookmark['link'] . "' class='mngLink'>" . $bookmark['name'] . "</a>";
+                                    echo "<a href='" . $bookmark['link'] . "' target='_blank' class='mngLink'>" . $bookmark['name'] . "</a>";
                                 } else {
                                     echo $bookmark['name'];
                                 } ?>

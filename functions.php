@@ -21,19 +21,19 @@ class ShiniMark
         }
     }
 
-    private $baseQuery = "SELECT b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
+    private $baseQuery = "SELECT b.id b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
                           FROM `bookmarks` AS b
                         LEFT JOIN `categories` AS c
 	                        ON b.category_id = c.id
                         LEFT JOIN `status` AS s
 	                        ON b.status_id = s.id ";
 
-    public function getBaseQuerry()
+    public function getBaseQuery()
     {
         return $this->baseQuery;
     }
 
-    public function getQuerry($base = '', $where = '', $order = 'ORDER BY b.update_time DESC', $limit = 'LIMIT 50')
+    public function getQuery($base = '', $where = '', $order = 'ORDER BY b.update_time DESC', $limit = 'LIMIT 50')
     {
         $base = (empty($base)) ? $this->baseQuery : $base . ' ' ;
         $order = (empty($order)) ? 'ORDER BY b.id DESC ' : $order . ' ';
@@ -43,15 +43,13 @@ class ShiniMark
 
     public function addData($data)
     {
-
         $name = htmlspecialchars($data['name']);
         $link = $data['link'];
-        $category = $data['category'];
+        $categoryId = $data['category'];
         $current = $data['current'];
         $latest = $data['latest'];
-        $status = $data['status'];
-        $categoryId = $this->getCategoryId($category);
-        $statusId = $this->getStatusId($status);
+        $statusId = $data['status'];
+
         $query = "INSERT INTO $this->bookmarkTable (name, link, category_id ,current ,latest ,status_id) VALUE('$name', '$link', '$categoryId', '$current','$latest', '$statusId')";
 
         if (mysqli_query($this->conn, $query)) {
@@ -130,15 +128,24 @@ class ShiniMark
         return array('Something went wrong');
     }
 
-    public function getData($query)
+    public function getBookmarkList($query)
     {
         if (mysqli_query($this->conn, $query)) {
             $bookmarks = mysqli_query($this->conn, $query);
             while ($bookmark = mysqli_fetch_assoc($bookmarks)) {
                 array_push($this->bookmarks, $bookmark); 
             }
-            return $this->bookmarks;
-        } return array('Something went wrong');
+            return (empty($this->bookmarks)) ? False : $this->bookmarks ;
+        } return False;
+    }
+
+    public function getBookmarkCount($query)
+    {
+        if (mysqli_query($this->conn, $query)) {
+            $bookmarks = mysqli_query($this->conn, $query);
+            return mysqli_num_rows($bookmarks);
+        }
+        return 0;
     }
 
     public function getMark($id)
@@ -204,7 +211,7 @@ class ShiniMark
         return False;
     }
 
-    public function delete_data($table, $id)
+    public function deleteData($table, $id)
     {
         $query = "DELETE FROM $table WHERE id=$id";
         if (mysqli_query($this->conn, $query)) return True;

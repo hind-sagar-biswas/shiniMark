@@ -1,12 +1,10 @@
 <div class="container shadow p-1 border " id="fp">
     <center>
-        <form class="form-inline" action="" method="post" onsubmit="return blockSubmit();" onchange="filterData()"
-            id="filter-form" name="filter-form">
+        <form class="form-inline" action="" method="post" onsubmit="return blockSubmit();" onchange="filterData()" id="filter-form" name="filter-form">
             <div class="btn-group">
                 <div class="btn-group">
                     <div class="input-group mb-1 mr-sm-1">
-                        <input type="text" class="form-control" name="search" oninput="filterData()"
-                            placeholder="Search">
+                        <input type="text" class="form-control" name="search" oninput="filterData()" placeholder="Search">
                     </div>
                 </div>
             </div>
@@ -26,8 +24,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                        name="condition">
+                    <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="condition">
                         <div class="dropdown-menu">
                             <option selected style="background-color:white;" class="dropdown-item" value="AND">AND
                             </option>
@@ -74,8 +71,7 @@
                     </select>
                 </div>
                 <div class="btn-group">
-                    <button type="button" name="filtered" class="btn btn-danger" onclick="getDefault()"><i
-                            class="fas fa-undo"></i></button>
+                    <button type="button" name="filtered" class="btn btn-danger" onclick="getDefault()"><i class="fas fa-undo"></i></button>
                 </div>
         </form>
     </center>

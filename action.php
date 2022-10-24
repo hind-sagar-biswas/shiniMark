@@ -1,6 +1,6 @@
 <?php
 
-if (isset($action)) {
+if (isset($_GET['act'])) {
     require './functions.php';
     $mark = new ShiniMark();
 
@@ -10,7 +10,7 @@ if (isset($action)) {
 
     if ($action == 'add') {
         $type = 'add';
-    } else if ($action == 'upd' && isset($_GET['id'])) {
+    } elseif ($action == 'upd' && isset($_GET['id'])) {
         $type = 'update';
         $actionId = $_GET['id'];
     }

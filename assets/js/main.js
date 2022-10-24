@@ -1,6 +1,5 @@
 const xhttp = new XMLHttpRequest();
-const DEFAULT_QUERY = "SELECT * FROM hinds ORDER BY id DESC";
-const DEFAULT_LOG = 'N';
+const DEFAULT_LOG = '0';
 const DEFAULT_PAGE = "1";
 
 //SELECT
@@ -9,18 +8,20 @@ let logoutBtn = document.getElementById('logout-button');
 let loginBtnCont = document.getElementById('login-button-container');
 let logoutBtnCont = document.getElementById('logout-button-container');
 
-let user, pwd, search, category, condition, statys, sort, order;
-let query = DEFAULT_QUERY;
+let user, pwd;  // marked
+let searchTerm, fCategory, fCondition, fStatus, fReadingStatus, fSortBy, fOrder; // new
+let where = "";
+let order = "ORDER BY b.update_time DESC";
 let loggedIn = DEFAULT_LOG;
 let pageNum = DEFAULT_PAGE;
-let filtered = "N";
+let heading = 'BOOKMARKS';
 
 let loginData = localStorage.getItem("loginData");
 console.log(loginData);
 
 function checkLogin() {
-  if (loginData != 'null' && loginData == 'Y') {
-    loggedIn = "Y";
+  if (loginData != 'null' && loginData == '404') {
+    loggedIn = "404";
     loginBtnCont.style.display = "none";
     logoutBtnCont.style.display = "block";
   }else{
@@ -29,99 +30,134 @@ function checkLogin() {
   }
 }
 
-function login() {
+function login(show) {
   user =  document.forms["login"]["login-un"].value;
   pwd = document.forms["login"]['login-pwd'].value;
 
-  if (user != "ShiniGami2004" || pwd != "#ashed@2004") {
-    alert("Inwalid usernaame or password")
+  if (user != "ShiniGami2004" || pwd != "#ashed2004") {
+    alert("Invalid usernaame or password! Try again.......")
   }else{
     if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("loginData", "Y");
+      localStorage.setItem("loginData", "404");
       loginData = localStorage.getItem("loginData");
       checkLogin();
     }else {
-      loggedIn = 'Y';
+      loggedIn = '404';
     }
-    displayData(query, filtered, loggedIn);
+    if(show) displayData(where, order, loggedIn);
+    if(show) displayFilterform(loggedIn);
   }
 }
 
-function logout() {
+function logout(show) {
   if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("loginData", "N");
+      localStorage.setItem("loginData", "0");
       loginData = localStorage.getItem("loginData");
       checkLogin();
   }
-  loggedIn = 'N';
+  loggedIn = '0';
 
-  displayData(query, filtered, loggedIn);
+  if(show) displayData(where, order, loggedIn);
+  if(show) displayFilterform(loggedIn);
 }
 
 function getFormData() {
-  search =  document.forms["filter-form"]["search"].value;
-  category = document.forms["filter-form"]['category'].value;
-  condition = document.forms["filter-form"]['condition'].value;
-  status = document.forms["filter-form"]['status'].value;
-  sort = document.forms["filter-form"]['sort'].value;
-  order = document.forms["filter-form"]['order'].value;
+  searchTerm =  document.forms["filter-form"]["search"].value;
+  fCategory = document.forms["filter-form"]['category'].value;
+  fCondition = document.forms["filter-form"]['condition'].value;
+  fStatus = document.forms["filter-form"]['status'].value;
+  fReadingStatus = document.forms["filter-form"]["reading_status"].value;
+  fSortBy = document.forms["filter-form"]['sort'].value;
+  fOrder = document.forms["filter-form"]['order'].value;
 }
 
-function displayData(query, filtered, loginState) {
-  let limitQuery = query + " " + limiter();
+function displayData(where_clause, order_clause, loggedState) {
   xhttp.onload = function() {
-    document.getElementById("data-container").innerHTML =
-      this.responseText;
+    document.getElementById("data-container").innerHTML = this.responseText;
   }
   xhttp.open("POST", "table.php");
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send(`q=${query}&lq=${limitQuery}&f=${filtered}&l=${loginState}&p=${pageNum}`);
+  xhttp.send(`get_data=1&
+              where_clause=${where_clause}&
+              order_clause=${order_clause}&
+              heading=${heading}&
+              restriction=${loggedState}&
+              page=${pageNum}`);
+}
+
+function displayFilterform(loggedState) {
+  xhttp.onload = function() {
+    document.getElementById("filter-form-container").innerHTML = this.responseText;
+  }
+  xhttp.open("POST", "filterform.php");
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(`get-filterform=1&restriction=${loggedState}`);
 }
 
 function filterData() {
   getFormData();
+  heading = 'FILTERED BOOKMARKS';
 
-  var where_query = null;
-  var order_query = `ORDER BY ${sort} ${order} `;
+  let where_query = null;
+  let order_query = null;
+  if (fSortBy != "none") {
+		order_query = `ORDER BY b.${fSortBy} ${fOrder} `;
+	}
 
-  query = "SELECT * FROM hinds ";
+  if (searchTerm.length > 0) {
+		where_query = `WHERE b.name LIKE '%${searchTerm}%' `;
+	} else {
+		where_query = null;
+	}
 
-  //if (search != null || search != '' ) {
-  if (search.length > 0) {
-    where_query = `WHERE name LIKE '%${search}%' `;
-  } else {
-    where_query = " ";
-  }
-
-  if (category != 'CATEGORY' || status != 'STATUS') {
-    if (where_query == " ") {
+  if (fCategory != 'none' || fStatus != 'none') {
+    if (where_query == null) {
       where_query = "WHERE ";
-    } else if (where_query != " ") {
+    } else {
       where_query = `${where_query} AND `;
     }
-    if (category != 'CATEGORY' && status != 'STATUS') {
-      where_query = `${where_query} category='${category}' ${condition} status='${status}' `;
-    } else if (category != 'CATEGORY') {
-      where_query = `${where_query} category='${category}' `;
+    
+    if (fCategory != 'none' && fStatus != 'none') {
+      where_query = `${where_query} (b.category_id = '${fCategory}' ${fCondition} b.status_id = '${fStatus}') `;
+    } else if (fCategory != 'none') {
+      where_query = `${where_query} b.category_id = '${fCategory}' `;
     } else {
-      where_query = `${where_query} status='${status}' `;
+      where_query = `${where_query} b.status_id = '${fStatus}' `;
     }
   }
 
-  query = `${query} ${where_query} ${order_query} `;
+  if (fReadingStatus != "none") {
+    if (where_query == null) {
+			where_query = "WHERE ";
+		} else {
+			where_query = `${where_query} AND `;
+		}
 
-  filtered = "Y";
-  displayData(query, filtered, loggedIn);
+    let readStatusCondition = null;
+    switch (fReadingStatus) {
+			case "catched_up":
+				readStatusCondition = "b.latest = b.current";
+				break;
+			case "reading":
+				readStatusCondition = "(b.latest < b.current AND b.latest > 0)";
+				break;
+			case "not_started":
+				readStatusCondition = "b.latest = 0";
+				break;
+
+			default:
+        readStatusCondition = null;
+				break;
+		}
+
+    where_query = `${where_query} ${readStatusCondition} `;
+	}
+
+  if (where_query != null) where = where_query;
+  if (order_query != null) order = order_query;
+    
+  displayData(where, order, loggedIn);
   return false;
-}
-
-function limiter() {
-  let limit_query = "LIMIT 50 ";
-  if (pageNum > 1) {
-    init_val = (pageNum - 1) * 50;
-    limit_query = ` LIMIT ${init_val}, 50 `;
-  }
-  return limit_query;
 }
 
 function blockSubmit() {
@@ -129,18 +165,23 @@ function blockSubmit() {
 }
 
 function getDefault(){
-  query = DEFAULT_QUERY;
-  filtered = "N";
-  displayData(query, filtered, loggedIn);
+  where = '';
+  order = "ORDER BY b.update_time DESC";
+  displayData(where, order, loggedIn);
+  displayFilterform(loggedIn);
 }
 
 function pageChange(page) {
   pageNum = page;
-  console.log(pageNum)
-  displayData(query, filtered, loggedIn);
+  displayData(where, order, loggedIn);
 }
 
+
+/// RUNS
 checkLogin();
-displayData(query, filtered, loggedIn);
-loginBtn.addEventListener("click", login);
-logoutBtn.addEventListener("click", logout);
+if (showData) {
+  displayData(where, order, loggedIn);
+  displayFilterform(loggedIn);
+}
+loginBtn.addEventListener("click", login(showData));
+logoutBtn.addEventListener("click", logout(showData));

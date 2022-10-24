@@ -1,4 +1,5 @@
 <?php
+// echo '<pre>' . var_dump($_POST) . '</pre>';
 if ($_POST['get_data'] == 1) {
     $restriction = intval($_POST['restriction']);
     $page = (!isset($_POST['page'])) ? 1 : intval($_POST['page']);
@@ -15,6 +16,7 @@ if ($_POST['get_data'] == 1) {
 
     $baseQuery = $mark->getBaseQuery();
     $query = $mark->getQuery($baseQuery, $where_clause, $_POST['order_clause'], $limitClause);
+    // echo $query;
     $queryForCount = $mark->getQuery('SELECT id FROM bookmarks AS b ', $where_clause, $_POST['order_clause'], '');
 
     $bookmarks = $mark->getBookmarkList($query);
@@ -66,7 +68,7 @@ if ($_POST['get_data'] == 1) {
                     <th class="">
                         Status
                     </th>
-                    <?php if (!$restriction) { ?>
+                    <?php if ($restriction == 404) { ?>
                         <th>
                             <i class='fas fa-tasks'></i>
                         </th>
@@ -89,7 +91,7 @@ if ($_POST['get_data'] == 1) {
                             <td><?php echo $bookmark['current']; ?></td>
                             <td><?php echo $bookmark['latest']; ?></td>
                             <td><?php echo $bookmark['status']; ?></td>
-                            <?php if (!$restriction) { ?>
+                            <?php if ($restriction == 404) { ?>
                                 <td>
                                     <div class='btn-group mx auto text-center'>
                                         <button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown'>

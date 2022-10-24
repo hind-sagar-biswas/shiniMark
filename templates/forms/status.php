@@ -1,7 +1,7 @@
 <div class="container shadow d-flex justify-content-center mb-4 p-5 border col-sm ">
     <form action="run.php" method="POST" autocomplete="off">
         <!-- FORM INFORMATION -->
-        <input type="hidden" name="type" value="<?php echo $type ?>">
+        <input type="hidden" name="action" value="<?php echo $type ?>">
         <input type="hidden" name="target" value="<?php echo $target ?>">
         <?php if ($type == 'update') { ?>
             <input type="hidden" name="id" value="<?php echo $actionId ?>">

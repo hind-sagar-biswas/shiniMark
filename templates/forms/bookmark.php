@@ -1,4 +1,8 @@
 <div class="container shadow d-flex justify-content-center mb-4 p-5 border col-sm ">
+    <!-- <pre>
+        <?php echo var_dump($targetData); ?>
+        <?php echo var_dump($categoryList); ?>
+    </pre> -->
     <form action="run.php" method="POST" autocomplete="off">
         <!-- FORM INFORMATION -->
         <input type="hidden" name="action" value="<?php echo $type ?>">
@@ -23,7 +27,7 @@
         <div class="input-group mb-1 mr-sm-1">
             <select class="form-control" name="category">
                 <?php foreach ($categoryList as $category) { ?>
-                    <option value="<?php echo $category['id'] ?>" <?php if ($type == 'update' && $category['id'] = $targetData['category_id']) echo 'selected'; ?>>
+                    <option value="<?php echo $category['id'] ?>" <?php if ($type == 'update' && $category['id'] == $targetData['category_id']) echo 'selected'; ?>>
                         <?php echo $category['category'] ?>
                     </option>
                 <?php } ?>
@@ -32,23 +36,21 @@
 
         <!-- CURRENT & lATEST CHAPTER -->
         <div class="input-group mb-1 mr-sm-1">
-            <input type="number" class="form-control" step="0.1" value="
-                <?php if ($type == 'update') echo $targetData['current'];
-                else echo 0; ?>
-            " name="current" placeholder="Current" required>
+            <input type="number" class="form-control" step="0.1" 
+                value="<?php if ($type == 'update') echo $targetData['current']; else echo 0; ?>" 
+            name="current" placeholder="Current" required>
         </div>
         <div class="input-group mb-1 mr-sm-1">
-            <input type="number" class="form-control" step="0.1" value="
-                <?php if ($type == 'update') echo $targetData['latest'];
-                else echo 1; ?>
-            " name="latest" placeholder="Latest" required>
+            <input type="number" class="form-control" step="0.1" 
+                value="<?php if ($type == 'update') echo $targetData['latest']; else echo 0; ?>" 
+            name="latest" placeholder="Latest" required>
         </div>
 
         <!-- STATUS -->
         <div class="input-group mb-1 mr-sm-1">
             <select class="form-control" name="status">
                 <?php foreach ($statusList as $status) { ?>
-                    <option value="<?php echo $status['id'] ?>" <?php if ($type == 'update' && $status['id'] = $targetData['status_id']) echo 'selected'; ?>>
+                    <option value="<?php echo $status['id'] ?>" <?php if ($type == 'update' && $status['id'] == $targetData['status_id']) echo 'selected'; ?>>
                         <?php echo $status['status'] ?>
                     </option>
                 <?php } ?>

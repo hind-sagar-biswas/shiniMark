@@ -10,8 +10,8 @@ if (isset($_GET['act'])) {
 
     if ($action == 'add') {
         $type = 'add';
-    } elseif ($action == 'upd' && isset($_GET['id'])) {
-        $type = 'update';
+    } elseif ($action == 'update' && isset($_GET['id'])) {
+        $type = $action;
         $actionId = $_GET['id'];
     }
     

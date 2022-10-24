@@ -70,7 +70,7 @@ class ShiniMark
 
     public function addCategory($category, $restriction)
     {
-        $addquery = "INSERT INTO $this->categoryTable (ctegory, restriction) VALUES('$category', '$restriction')";
+        $addquery = "INSERT INTO $this->categoryTable (category, restriction) VALUES('$category', '$restriction')";
         if (mysqli_query($this->conn, $addquery)) {
             return $this->getCategoryId($category, $restriction);
         } else {
@@ -150,7 +150,7 @@ class ShiniMark
 
     public function getMark($id)
     {
-        $query = "$this->baseQuery WHERE id=$id";
+        $query = "$this->baseQuery WHERE b.id=$id";
         if (mysqli_query($this->conn, $query)) {
             $returnData = mysqli_fetch_assoc(mysqli_query($this->conn, $query));
             return $returnData;
@@ -206,7 +206,7 @@ class ShiniMark
 
     public function updateStatus($id, $newStatus)
     {
-        $query = "UPDATE $this->statusTable SET cstatus='$newStatus' WHERE id='$id'";
+        $query = "UPDATE $this->statusTable SET status='$newStatus' WHERE id='$id'";
         if (mysqli_query($this->conn, $query)) return True;
         return False;
     }

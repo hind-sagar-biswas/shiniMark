@@ -27,6 +27,17 @@ if (isset($_POST['get-filterform'])) {
             </div>
 
             <div class="btn-group mb-1">
+
+                <?php if ($restriction == 404) { ?>
+                    <div class="btn-group">
+                        <a href="./action.php?act=add&tar=category">
+                            <button type="button" name="filtered" class="btn btn-danger">
+                                <strong>+</strong>
+                            </button>
+                        </a>
+                    </div>
+                <?php }  ?>
+
                 <div class="btn-group">
                     <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="category">
                         <div class="dropdown-menu">
@@ -37,7 +48,7 @@ if (isset($_POST['get-filterform'])) {
                                 <option style="background-color:white;" value="<?php echo $category['id']  ?>" class="dropdown-item">
                                     <?php echo strtoupper($category['category']) ?>
                                 </option>
-                            <?php }  ?>
+                            <?php } ?>
                         </div>
                     </select>
                 </div>

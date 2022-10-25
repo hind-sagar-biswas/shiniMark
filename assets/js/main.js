@@ -9,7 +9,7 @@ let logoutBtn = document.getElementById('logout-button');
 let loginBtnCont = document.getElementById('login-button-container');
 let logoutBtnCont = document.getElementById('logout-button-container');
 
-let user, pwd;  // marked
+// let user, pwd;
 let searchTerm, fCategory, fCondition, fStatus, fReadingStatus, fSortBy, fOrder;
 let where = "";
 let order = " ORDER BY b.id DESC ";
@@ -31,8 +31,8 @@ function checkLogin() {
 }
 
 function login() {
-  user =  document.forms["login"]["login-un"].value;
-  pwd = document.forms["login"]['login-pwd'].value;
+  let user =  document.forms["login"]["login-un"].value;
+  let pwd = document.forms["login"]['login-pwd'].value;
 
   tryLogin(user, pwd);
 }

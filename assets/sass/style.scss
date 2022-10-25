@@ -1,0 +1,19 @@
+@import './variables';
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.mngLink {
+  color: $light-blue;
+  font-weight: bold;
+
+  &:hover{
+    color: rgb(227, 186, 4);
+    text-decoration: none;
+  }
+}

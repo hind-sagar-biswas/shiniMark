@@ -280,6 +280,8 @@ class ShiniMark
         }
     }
 
+
+    // Login
     public function login($user, $password)
     {
         $query = "SELECT * FROM admin_info WHERE username = '$user'";

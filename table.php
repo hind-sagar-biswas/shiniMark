@@ -125,7 +125,9 @@ if ($_POST['get_data'] == 1) {
                             </td>
 
                             <!-- Category column -->
-                            <td><?php echo $bookmark['category']; ?></td>
+                            <td class="<?php if($bookmark['restriction']) echo 'text-danger'; ?>">
+                                <?php echo $bookmark['category']; ?>
+                            </td>
 
                             <!-- Current and Latest Chapters -->
                             <td><?php echo $bookmark['current']; ?></td>
@@ -155,7 +157,7 @@ if ($_POST['get_data'] == 1) {
                             <?php if ($restriction == 404) { ?>
                                 <td>
                                     <div class='btn-group mx auto text-center'>
-                                        <button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown'>
+                                        <button type='button' class='btn btn-sm btn-danger dropdown-toggle' data-toggle='dropdown'>
                                             <i class='fas fa-tasks'></i>
                                         </button>
                                         <div class='dropdown-menu p-1' style='border:none; padding:0'>

@@ -22,7 +22,7 @@ class ShiniMark
         }
     }
 
-    private $baseQuery = "SELECT b.id, b.name, b.link, c.category, b.category_id, b.current, b.latest, s.status, b.status_id
+    private $baseQuery = "SELECT b.id, b.name, b.link, c.category, c.restriction, b.category_id, b.current, b.latest, s.status, b.status_id
                           FROM `bookmarks` AS b
                         LEFT JOIN `categories` AS c
 	                        ON b.category_id = c.id

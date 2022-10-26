@@ -24,7 +24,11 @@ $websites = $mark->getWebsiteList($restriction);
                 </li>
             <?php } ?>
             <li class="nav-item navigator" id="all-websites">
-                <a target="_blank" href="websitelist.php"><button class="nav-link btn navigator-items">All</button></a>
+                <a target="_blank" href="websitelist.php">
+                    <button class="nav-link btn navigator-items">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                </a>
             </li>
         </ul>
 

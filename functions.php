@@ -1,6 +1,10 @@
 <?php
-class ShiniMark
+require './db/config.php';
+
+class ShiniMark extends Config
 {
+    protected $DEBUG = True;
+
     private $conn;
     private $bookmarkTable = 'bookmarks';
     private $categoryTable = 'categories';
@@ -10,10 +14,17 @@ class ShiniMark
 
     public function __construct()
     {
-        $dbhost = 'localhost';
-        $dbuser = 'root';
-        $dbpass = "";
-        $dbname = 'shinimark';
+        if ($this->DEBUG) {
+            $dbhost = 'localhost';
+            $dbuser = 'root';
+            $dbpass = '';
+            $dbname = 'shinimark';
+        } else {
+            $dbhost = $this->dbhost;
+            $dbuser = $this->dbuser;
+            $dbpass = $this->dbpass;
+            $dbname = $this->dbname;
+        }
 
         $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 

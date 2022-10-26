@@ -33,5 +33,3 @@
 </head>
 
 <body>
-
-    <?php require './templates/navbar.php'; 

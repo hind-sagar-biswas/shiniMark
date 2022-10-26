@@ -4,6 +4,7 @@ const DEFAULT_PAGE = "1";
 const showData = true;
 
 //SELECT
+let allBtn = document.getElementById("all-websites");
 let loginBtn = document.getElementById('login-button');
 let logoutBtn = document.getElementById('logout-button');
 let loginBtnCont = document.getElementById('login-button-container');
@@ -24,9 +25,11 @@ function checkLogin() {
     loggedIn = "404";
     loginBtnCont.style.display = "none";
     logoutBtnCont.style.display = "block";
+    allBtn.style.display = "block";
   }else{
     loginBtnCont.style.display = "block";
     logoutBtnCont.style.display = "none";
+    allBtn.style.display = "none";
   }
 }
 

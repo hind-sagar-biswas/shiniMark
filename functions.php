@@ -5,6 +5,7 @@ class ShiniMark
     private $bookmarkTable = 'bookmarks';
     private $categoryTable = 'categories';
     private $statusTable = 'status';
+    private $websiteTable = 'websites';
     private $bookmarks = array();
 
     public function __construct()
@@ -53,7 +54,9 @@ class ShiniMark
         $query = "INSERT INTO $this->bookmarkTable (name, link, category_id ,current ,latest ,status_id) VALUE('$name', '$link', '$categoryId', '$current','$latest', '$statusId')";
 
         if (mysqli_query($this->conn, $query)) {
-            return "Information Added Successfully";
+            $restriction = $this->getCategory($categoryId)['restriction'];
+            $parsedUrl = parse_url($link);
+            if($this->addWebsite($parsedUrl['scheme'], $parsedUrl['host'], $restriction)) return "Information Added Successfully";
         }
     }
 
@@ -99,6 +102,40 @@ class ShiniMark
         }
     }
 
+    public function addWebsite($scheme, $host, $restriction, $type = 'manga')
+    {
+        $url = "$scheme://$host/";
+        $name = ucfirst(explode(".", $host)[0]);
+        $go = True;
+        switch ($name) {
+            case 'Manganato':
+                $go = False;
+                break;
+            case 'Chapmanganato':
+                $go = False;
+                break;
+            case 'Readmanganato':
+                $go = False;
+                break;
+            
+            default:
+                $go = True;
+                break;
+        }
+        if (!$this->checkExists($this->websiteTable, 'url', $url) && $go) {
+            $addquery = "INSERT INTO $this->websiteTable (type, name, url, restriction) VALUES('$type', '$name', '$url', '$restriction')";
+            if (mysqli_query($this->conn, $addquery)) return True;
+            else return False;
+        } return "Entry Already Exists!";
+    }
+
+    public function checkExists($table, $col, $value)
+    {
+        $query = "SELECT * FROM $table WHERE $col = '$value'";
+        if (mysqli_num_rows(mysqli_query($this->conn, $query)) > 0) return True;
+        else return False;   
+    }
+
     public function getStatusList()
     {
         $statusList = array();
@@ -137,6 +174,21 @@ class ShiniMark
             }
             return (empty($this->bookmarks)) ? False : $this->bookmarks ;
         } return False;
+    }
+
+    public function getWebsiteList($restriction = 404)
+    {
+        $websiteList = array();
+        $query = "SELECT name, url, type FROM websites";
+        if ($restriction != 404) $query = "$query WHERE restriction = '$restriction'";
+        if (mysqli_query($this->conn, $query)) {
+            $websites = mysqli_query($this->conn, $query);
+            while ($bookmark = mysqli_fetch_assoc($websites)) {
+                array_push($websiteList, $bookmark);
+            }
+            return (empty($websiteList)) ? False : $websiteList;
+        }
+        return False;
     }
 
     public function getBookmarkCount($query)
@@ -216,6 +268,24 @@ class ShiniMark
         $query = "DELETE FROM $table WHERE id=$id";
         if (mysqli_query($this->conn, $query)) return True;
         return False;
+    }
+
+    /// Getting all websites from bookmarks
+    public function setWebsitesFromBookmarks()
+    {
+        $query = "SELECT link, category_id FROM $this->bookmarkTable";
+        $bookmarks = $this->getBookmarkList($query);
+
+        echo "<pre>";
+        foreach ($bookmarks as $bookmark) {
+            $restriction = $this->getCategory($bookmark['category_id'])['restriction'];
+            if(!empty($bookmark['link']) || $bookmark['link'] != null){
+                $parsedUrl = parse_url($bookmark['link']);
+                var_dump($parsedUrl);
+                $this->addWebsite($parsedUrl['scheme'], $parsedUrl['host'], $restriction);
+            } 
+        }
+        echo "</pre>";
     }
 
     /// Switching methods

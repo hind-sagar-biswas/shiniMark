@@ -54,9 +54,12 @@ class ShiniMark
         $query = "INSERT INTO $this->bookmarkTable (name, link, category_id ,current ,latest ,status_id) VALUE('$name', '$link', '$categoryId', '$current','$latest', '$statusId')";
 
         if (mysqli_query($this->conn, $query)) {
-            $restriction = $this->getCategory($categoryId)['restriction'];
-            $parsedUrl = parse_url($link);
-            if($this->addWebsite($parsedUrl['scheme'], $parsedUrl['host'], $restriction)) return "Information Added Successfully";
+            if (!empty($link) || $link != null) {
+                $restriction = $this->getCategory($categoryId)['restriction'];
+                $parsedUrl = parse_url($link);
+                if ($this->addWebsite($parsedUrl['scheme'], $parsedUrl['host'], $restriction)) return "Information Added Successfully";
+            }
+            return "Information Added Successfully";
         }
     }
 

@@ -42,7 +42,7 @@
         </div>
         <div class="input-group mb-1 mr-sm-1">
             <input type="number" class="form-control" step="0.1" 
-                value="<?php if ($type == 'update') echo $targetData['latest']; else echo 0; ?>" 
+                value="<?php if ($type == 'update') echo $targetData['latest']; else echo 1; ?>" 
             name="latest" placeholder="Latest" required>
         </div>
 

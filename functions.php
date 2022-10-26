@@ -182,8 +182,9 @@ class ShiniMark
     public function getWebsiteList($restriction = 404)
     {
         $websiteList = array();
-        $query = "SELECT name, url, type FROM websites";
+        $query = "SELECT name, url, type, restriction FROM websites";
         if ($restriction != 404) $query = "$query WHERE restriction = '$restriction'";
+        $query = "$query ORDER BY name";
         if (mysqli_query($this->conn, $query)) {
             $websites = mysqli_query($this->conn, $query);
             while ($bookmark = mysqli_fetch_assoc($websites)) {

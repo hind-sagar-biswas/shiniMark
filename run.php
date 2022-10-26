@@ -46,8 +46,8 @@ if (isset($_POST['submit'])) {
         require './functions.php';
         $mark = new ShiniMark();
         $deleted = False;
-        $target = $_POST['target'];
-        $id = $_POST['del'];
+        $target = $_GET['target'];
+        $id = $_GET['del'];
         switch ($target) {
             case 'bookmark':
                 $deleted = $mark->deleteData('bookmarks', $id);

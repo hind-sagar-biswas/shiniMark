@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 24, 2022 at 07:18 PM
+-- Generation Time: Oct 26, 2022 at 09:04 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -33,13 +33,6 @@ CREATE TABLE `admin_info` (
   `email` varchar(225) DEFAULT NULL,
   `password` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `admin_info`
---
-
-INSERT INTO `admin_info` (`id`, `username`, `email`, `password`) VALUES
-(1, 'ShiniGami2004', 'hindsbhk@gmail.com', '$2y$10$wz1l0GwbwqyU1Bn3.rxQ9eu7Q9Q4FATGrqADHqEuXT6AC5vmN8rJu');
 
 -- --------------------------------------------------------
 
@@ -73,17 +66,6 @@ CREATE TABLE `categories` (
   `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `category`, `restriction`, `create_time`, `update_time`) VALUES
-(1, 'Manga', 0, '2022-10-24 23:14:03', '2022-10-24 23:14:03'),
-(2, 'Manhwa', 0, '2022-10-24 23:14:21', '2022-10-24 23:14:21'),
-(3, 'Manhua', 0, '2022-10-24 23:14:32', '2022-10-24 23:14:32'),
-(4, 'Hentai', 1, '2022-10-24 23:14:42', '2022-10-24 23:14:42'),
-(5, 'Pornhwa', 1, '2022-10-24 23:14:57', '2022-10-24 23:14:57');
-
 -- --------------------------------------------------------
 
 --
@@ -97,16 +79,6 @@ CREATE TABLE `status` (
   `create_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `status`
---
-
-INSERT INTO `status` (`id`, `status`, `description`, `create_time`) VALUES
-(1, 'Ongoing', 'Ongoing Titles', '2022-10-24 23:15:49'),
-(2, 'Completed', 'Completed Titles', '2022-10-24 23:16:11'),
-(3, 'Season End', 'Waiting for the next season', '2022-10-24 23:16:38'),
-(4, 'Axed', 'Axed or Canceled Titles', '2022-10-24 23:17:01');
-
 -- --------------------------------------------------------
 
 --
@@ -115,9 +87,10 @@ INSERT INTO `status` (`id`, `status`, `description`, `create_time`) VALUES
 
 CREATE TABLE `websites` (
   `id` int(11) NOT NULL,
+  `type` varchar(225) NOT NULL DEFAULT 'manga',
   `name` varchar(225) NOT NULL,
   `url` varchar(225) NOT NULL,
-  `restriction` int(11) NOT NULL,
+  `restriction` int(11) NOT NULL DEFAULT 0,
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -170,7 +143,7 @@ ALTER TABLE `websites`
 -- AUTO_INCREMENT for table `admin_info`
 --
 ALTER TABLE `admin_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `bookmarks`
@@ -182,13 +155,13 @@ ALTER TABLE `bookmarks`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `websites`

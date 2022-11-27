@@ -89,8 +89,8 @@ if ($_POST['get_data'] == 1) {
                         </td>
                     </tr>
                     <?php } else {
-                    foreach ($bookmarks as $bookmark) {  ?>
-
+                    foreach ($bookmarks as $bookmark) { 
+                        if (($restriction == 0 && $bookmark['restriction'] == 0) || $restriction == 404) { ?>
                         <tr>
                             <!-- Reading status badges -->
                             <td>
@@ -173,7 +173,9 @@ if ($_POST['get_data'] == 1) {
                             <?php } ?>
                         </tr>
 
-                <?php }
+                <?php
+                        }
+                    }
                 } ?>
             </tbody>
         </table>

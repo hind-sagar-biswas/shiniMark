@@ -1,13 +1,13 @@
 <p align="center">
-  <img width="200" src="assets/images/logo.png">
+  <img width="200" src="static/images/logo.png">
 </p>
 
 # shiniMark
 
-![Project Language](https://img.shields.io/static/v1?label=language&message=PHP&color=blue)
-![Project Language](https://img.shields.io/static/v1?label=language&message=AJAX&color=yellow)
+![Project Language](https://img.shields.io/static/v1?label=language&message=python&color=blue)
+![Project Language](https://img.shields.io/static/v1?label=language&message=django&color=forestgreen)
 ![Project Type](https://img.shields.io/static/v1?label=type&message=application&color=cyan)
-![Current Version](https://img.shields.io/static/v1?label=current-version&message=v1.9&color=lightgrey)
+![Current Version](https://img.shields.io/static/v1?label=current-version&message=v2&color=lightgrey)
 ![Stable Version](https://img.shields.io/static/v1?label=stable-version&message=not-released&color=red)
 ![Maintained](https://img.shields.io/static/v1?label=maintained&message=yes&color=green)
 ![Ask Me Anything](https://img.shields.io/static/v1?label=ask-me&message=anything&color=green)
@@ -21,15 +21,11 @@ A personal bookmark management site using AJAX & PHP
 
 1. Languages
    
-   * PHP
-   
-   * AJAX
+   * Django
     
    * mySQL
    
-   * CSS3
-   
-1. Frameworks & Libraries 
+2. Frameworks & Libraries 
    
    * Bootstrap4
 

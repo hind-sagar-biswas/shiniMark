@@ -1,0 +1,11 @@
+{% for option in options %}
+    
+    {% if selected and option.id == selected %}
+        <option style="background-color:white;" value="{{ option.id }}" class="dropdown-item" selected>
+    {% else %}
+        <option style="background-color:white;" value="{{ option.id }}" class="dropdown-item">
+    {% endif %}
+            
+            {{ option|upper }}
+        </option>
+{% endfor %}

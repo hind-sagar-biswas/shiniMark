@@ -1,0 +1,82 @@
+@import './variables';
+
+@function break($point-name) {
+    @return map-get($breakpoints, $point-name);
+}
+
+@mixin mobile {
+    @media (max-width: break(md)) {
+        @content;
+    }
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+
+.pagination .page-link {
+  color: $danger;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: $danger;
+  border-color: $danger;
+  color: $light;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: $light;
+  color: #6c757d;
+}
+
+.drop-danger {
+  background-color: $danger;
+  color: $light;
+
+  &:hover{
+    background-color: darken($danger, 10%);
+    color: $light;
+  }
+}
+
+.drop-secondary {
+  background-color: $secondary;
+  color: $light;
+
+  &:hover{
+    background-color: darken($secondary, 10%);
+    color: $light;
+  }
+}
+
+.mngLink {
+  color: $light-blue;
+  font-weight: bold;
+
+  &:hover{
+    color: rgb(227, 186, 4);
+    text-decoration: none;
+  }
+}
+
+.navigator {
+  #{&}-items{
+    color: $danger !important;
+  
+    @include mobile{
+      width: 100%;
+      text-align: left;
+      padding-left: 10px !important;
+    }
+
+    &:hover{
+      background-color: $danger;
+      color: $light !important;
+    }
+  }
+}

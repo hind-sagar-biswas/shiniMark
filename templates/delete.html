@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container shadow mb-4 p-5 border col-sm ">
+    <form action="" method="POST" autocomplete="off">
+        {% csrf_token %}
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Warning!</h4>
+            <p>
+                You have requested for a delete action...
+                <hr>
+                <strong>Delete Target:</strong> <i>{{obj}}</i>
+                <br>
+                <strong>Type:</strong> <i>{{type}}</i>
+                <br>
+                <strong>Created at:</strong> <i>{{obj.created_at}}</i>
+            </p>
+            <hr>
+            <p class="mb-0"><strong>&gt;&gt;</strong> Are you sure you want proceed?</p>
+        </div>
+        <div class="d-flex flex-row-reverse" style="gap:10px">
+            <button type="submit" name="submit" class="btn btn-danger mb-1">PROCEED</button>
+            <a href="{{ request.META.HTTP_REFERER|escape }}" name="home" class="btn btn-secondary mb-1">RETURN</a>
+        </div>
+    </form>
+</div>
+<br>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+<tr>
+    <!-- Reading status badges -->
+    <td>
+        {% if bookmark.current == 0 %}
+            {% with badgeStyle='danger' badgeText='pause' %}
+                <span class='badge badge-{{ badgeStyle }}'><i class="fas fa-{{ badgeText }}"></i></span>
+            {% endwith %}
+        {% elif bookmark.current == bookmark.latest %}
+            {% with badgeStyle='secondary' badgeText='check' %}
+                <span class='badge badge-{{ badgeStyle }}'><i class="fas fa-{{ badgeText }}"></i></span>
+            {% endwith %}
+        {% else %}
+            {% with badgeStyle='warning' badgeText='play' %}
+                <span class='badge badge-{{ badgeStyle }}'><i class="fas fa-{{ badgeText }}"></i></span>
+            {% endwith %}
+        {% endif %}
+    </td>
+
+    <!-- Bookmark titles -->
+    <td align="left">
+        &nbsp&nbsp
+        {% if bookmark.link is not None and bookmark.link != "" %}
+            <a href='{{ bookmark.link }}' target='_blank' class='mngLink'>{{ bookmark.name }}</a>
+        {% else %}
+            {{bookmark}}
+        {% endif %}
+    </td>
+
+    <!-- Category column -->
+    <td class="{% if bookmark.category.restriction %} {{ 'text-danger' }} {% endif %}">
+        {{ bookmark.category }}
+    </td>
+
+    <!-- Current and Latest Chapters -->
+    <td>{{ bookmark.current|floatformat:"0" }}</td>
+    <td>{{ bookmark.latest|floatformat:"0" }}</td>
+
+    <!-- Status column -->
+    {% with statusTheme='primary' %}
+        {% if bookmark.status == 'Completed' %}
+            {% with statusTheme='success' %}
+            {% endwith %}
+        {% elif bookmark.status == 'Ongoing' %}
+            {% with statusTheme='info' %}
+            {% endwith %}
+        {% elif bookmark.status == 'Season End' %}
+            {% with statusTheme='warning' %}
+            {% endwith %}
+        {% elif bookmark.status == 'Axed' %}
+            {% with statusTheme='danger' %}
+            {% endwith %}
+        {% endif %}
+    {% endwith %}
+    <td class="table-{{ statusTheme }} text-{{ statusTheme }}">
+        {{ bookmark.status }}
+    </td>
+    <!-- @auth -->
+    <td>
+        <div class='btn-group mx auto text-center'>
+            <button type='button' class='btn btn-sm btn-danger dropdown-toggle' data-toggle='dropdown'>
+                <i class='fas fa-tasks'></i>
+            </button>
+            <ul class='dropdown-menu p-1' style='border:none; padding:0' action="{% url 'bookmark-update' bookmark.id %}"
+                method="POST">
+                <!-- @csrf
+                @method('DELETE') -->
+                <a class='dropdown-item drop-secondary' href="{% url 'bookmark-update' bookmark.id %}">
+                    <i class='fas fa-edit'></i>
+                </a>
+                <a class='dropdown-item drop-danger' href="{% url 'bookmark-delete' bookmark.id %}">
+                    <i class='fa fa-trash' aria-hidden='true'></i>
+                </a>
+            </ul>
+        </div>
+    </td>
+    <!-- @endauth -->
+</tr>

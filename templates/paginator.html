@@ -1,0 +1,61 @@
+{% if paginator.has_previous or paginator.has_next %}
+<nav>
+    <ul class="pagination color-danger justify-content-center">
+        {% if not paginator.has_previous %}
+        <li class="page-item disabled" aria-disabled="true" aria-label="Previous">
+            <span class="page-link" aria-hidden="true">
+                 <i class="fa fa-angle-double-left"></i>
+            </span>
+        </li>
+        <li class="page-item disabled" aria-disabled="true" aria-label="Previous">
+            <span class="page-link" aria-hidden="true">
+                 <i class="fa fa-angle-left"></i>
+            </span>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" rel="first" aria-label="First">
+                <i class="fa fa-angle-double-left"></i>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.previous_page_number }}" rel="prev" aria-label="Previous">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% for page in paginator.paginator_range %}
+        {% if page == paginator.number %}
+        <li class="page-item active" aria-current="page"><span class="page-link">{{ page }}</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if not paginator.has_next %}
+        <li class="page-item disabled" aria-disabled="true" aria-label="Next">
+            <span class="page-link" aria-hidden="true">
+                <i class="fa fa-angle-right"></i>
+            </span>
+        </li>
+        <li class="page-item disabled" aria-disabled="true" aria-label="Next">
+            <span class="page-link" aria-hidden="true">
+                <i class="fa fa-angle-double-right"></i>
+            </span>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.next_page_number }}" rel="next" aria-label="Next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.paginator.num_pages }}" rel="last" aria-label="Last">
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </li>
+
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

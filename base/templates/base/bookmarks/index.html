@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<center>
+    <h2> BOOKMARKS
+        <!-- @auth -->
+        <a href="{% url 'bookmark-add' %}" class="text-danger"><i class="fas fa-bookmark"></i></a>
+        <!-- @endauth -->
+    </h2>
+    <p>Stories: <span class="text-danger">{{bookmarks.total}}</span></p>
+
+    {% include 'paginator.html' with paginator=bookmarks %}
+
+        {% if bookmarks|length != 0 %}
+            {% include 'base/components/bookmarks_table.html' %}
+        {% else %}
+            <center>
+                <h3 class="text-danger m-1">
+                    No records found!
+                </h3>
+            </center>
+        {% endif %}
+
+    {% include 'paginator.html' with paginator=bookmarks %}
+</center>
+
+{% endblock %}

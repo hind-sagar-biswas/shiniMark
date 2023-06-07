@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="list-group">
+        {% for website in websites %}
+        <a target="_blank" href="{{ website.url }}"
+            class="list-group-item d-flex justify-content-between align-items-center list-group-item-action text-danger">
+            {{ website }}
+            {% if website.restriction %}
+            <span class="badge badge-danger badge-pill">18+</span>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

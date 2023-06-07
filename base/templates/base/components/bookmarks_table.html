@@ -21,11 +21,11 @@
                 <th class="">
                     Status
                 </th>
-                <!-- @auth -->
+                {% if request.user.is_authenticated %}
                 <th>
                     <i class='fas fa-tasks'></i>
                 </th>
-                <!-- @endauth -->
+                {% endif %}
             </tr>
         </thead>
 

@@ -1,36 +1,32 @@
-{% extends 'main.html' %}
+{% extends 'layout.html' %}
 
 {% block content %}
 
 <div class="container shadow d-flex justify-content-center mb-4 p-5 border col-sm ">
-    <form action="/users/authenticate" method="POST" autocomplete="off">
+    <form action="" method="POST" autocomplete="off">
         {% csrf_token %}
 
         <!-- USERNAME -->
         <div class="input-group mb-1 mr-sm-1">
-            <input type="text" class="form-control" name="username" placeholder="username" value="{{old('username')}}"
+            <input type="text" class="form-control" name="username" placeholder="username" value="{{ form.initial.username }}"
                 required>
         </div>
-        @error('username')
-        <p class="text-danger">{{$message}}</p>
-        @enderror
         {% if form.errors.username %}
         <p class="txt-red"> {{ form.errors.username }} </p>
         {% endif %}
 
         <!-- PASSWORD -->
         <div class="input-group mb-1 mr-sm-1">
-            <input type="password" class="form-control" name="password" placeholder="password"
-                value="{{old('password')}}" required>
+            <input type="password" class="form-control" name="password" placeholder="password" value="{{ form.initial.password }}" required>
         </div>
-        @error('password')
-        <p class="text-danger">{{$message}}</p>
-        @enderror
+        {% if form.errors.password %}
+        <p class="txt-red"> {{ form.errors.password }} </p>
+        {% endif %}
 
-        <div class="form-group mb-3">
+        <!-- <div class="form-group mb-3">
             <label for="remember">Remember me</label>
             <input type="checkbox" name="remember" value="1">
-        </div>
+        </div> -->
         <button type="submit" name="submit" class="btn btn-danger mb-1">LOGIN</button>
     </form>
 </div>

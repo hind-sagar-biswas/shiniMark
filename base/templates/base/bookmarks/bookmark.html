@@ -62,7 +62,7 @@
     {% endwith %}
     {% endif %}
     
-    <!-- @auth -->
+    {% if request.user.is_authenticated %}
     <td>
         <div class='btn-group mx auto text-center'>
             <button type='button' class='btn btn-sm btn-danger dropdown-toggle' data-toggle='dropdown'>
@@ -81,5 +81,5 @@
             </ul>
         </div>
     </td>
-    <!-- @endauth -->
+    {% endif %}
 </tr>

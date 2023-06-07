@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from .models import Categories, Statuses, ReadStatuses, Websites, Bookmarks
 from .forms import BookmarkForm
@@ -13,7 +16,7 @@ def home(request):
     bookmarks = pagination.get_page(page)
     bookmarks.paginator_range = range(1, bookmarks.paginator.num_pages + 1)
     bookmarks.total = bookmarks_obj.count()
-    
+
     context = {
         'title': "Personal bookmark site",
         'bookmarks': bookmarks,
@@ -79,3 +82,32 @@ def websites(request):
         'websites': Websites.objects.all(),
     }
     return render(request, 'base/websites/index.html', context)
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Login Successfull')
+                return redirect('root')
+            else:
+                messages.warning(request, 'Credentials might be wrong!')
+        except Exception:
+            messages.error(request, 'User does not exists!')
+
+    context = {
+        'title': "Login",
+    }
+    return render(request, 'base/users/login.html', context)
+
+def logoutUser(request):
+    if request.method == 'POST':
+        messages.warning(request, 'You have been logged out!')
+        logout(request)
+    return redirect('root')

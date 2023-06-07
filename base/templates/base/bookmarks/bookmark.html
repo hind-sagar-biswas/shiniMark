@@ -36,24 +36,32 @@
     <td>{{ bookmark.latest|floatformat:"0" }}</td>
 
     <!-- Status column -->
-    {% with statusTheme='primary' %}
-        {% if bookmark.status == 'Completed' %}
-            {% with statusTheme='success' %}
-            {% endwith %}
-        {% elif bookmark.status == 'Ongoing' %}
-            {% with statusTheme='info' %}
-            {% endwith %}
-        {% elif bookmark.status == 'Season End' %}
-            {% with statusTheme='warning' %}
-            {% endwith %}
-        {% elif bookmark.status == 'Axed' %}
-            {% with statusTheme='danger' %}
-            {% endwith %}
-        {% endif %}
-    {% endwith %}
+    {% if bookmark.status.status == 'Completed' %}
+    {% with statusTheme='success' %}
     <td class="table-{{ statusTheme }} text-{{ statusTheme }}">
         {{ bookmark.status }}
     </td>
+    {% endwith %}
+    {% elif bookmark.status.status == 'Ongoing' %}
+    {% with statusTheme='info' %}
+    <td class="table-{{ statusTheme }} text-{{ statusTheme }}">
+        {{ bookmark.status }}
+    </td>
+    {% endwith %}
+    {% elif bookmark.status.status == 'Season End' %}
+    {% with statusTheme='warning' %}
+    <td class="table-{{ statusTheme }} text-{{ statusTheme }}">
+        {{ bookmark.status }}
+    </td>
+    {% endwith %}
+    {% elif bookmark.status.status == 'Axed' %}
+    {% with statusTheme='danger' %}
+    <td class="table-{{ statusTheme }} text-{{ statusTheme }}">
+        {{ bookmark.status }}
+    </td>
+    {% endwith %}
+    {% endif %}
+    
     <!-- @auth -->
     <td>
         <div class='btn-group mx auto text-center'>

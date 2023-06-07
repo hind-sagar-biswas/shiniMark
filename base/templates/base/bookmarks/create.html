@@ -20,7 +20,7 @@
                 value="{{ form.initial.alt_names }}">
         </div>
         {% if form.errors.alt_names %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.alt_names }} </p>
         {% endif %}
 
         <!-- LINK -->
@@ -28,7 +28,7 @@
             <input type="url" class="form-control" id="link" name="link" placeholder="https://" value="{{ form.initial.link }}">
         </div>
         {% if form.errors.link %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.link }} </p>
         {% endif %}
 
         <!-- CATEGORIES -->
@@ -38,7 +38,7 @@
             </select>
         </div>
         {% if form.errors.category %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.category }} </p>
         {% endif %}
 
         <!-- CURRENT & lATEST CHAPTER -->
@@ -47,13 +47,13 @@
                 required>
         </div>
         {% if form.errors.current %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.current }} </p>
         {% endif %}
         <div class="input-group mb-1 mr-sm-1">
             <input type="number" class="form-control" step="0.1" name="latest" placeholder="Latest" value="1" required>
         </div>
         {% if form.errors.latest %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.latest }} </p>
         {% endif %}
 
         <!-- STATUS -->
@@ -64,7 +64,7 @@
             </select>
         </div>
         {% if form.errors.status %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.status }} </p>
         {% endif %}
 
         <!-- READ STATUS -->
@@ -75,7 +75,7 @@
             </select>
         </div>
         {% if form.errors.read_status %}
-            <p class="txt-red"> {{ form.errors.name }} </p>
+            <p class="txt-red"> {{ form.errors.read_status }} </p>
         {% endif %}
 
         <button type="submit" name="submit" class="btn btn-danger mb-1">SUBMIT</button>

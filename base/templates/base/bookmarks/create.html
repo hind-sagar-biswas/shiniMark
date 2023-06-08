@@ -34,7 +34,7 @@
         <!-- CATEGORIES -->
         <div class="input-group mb-1 mr-sm-1">
             <select class="form-control" name="category">
-                {% include 'base/components/form_select_option.html' with options=categories slected=form.initial.category %}
+                {% include 'base/components/form_select_option.html' with options=categories selected=form.initial.category %}
             </select>
         </div>
         {% if form.errors.category %}
@@ -60,7 +60,7 @@
         <div class="input-group mb-1 mr-sm-1">
             <select class="form-control" name="status">
                 <x-form-select-options :options="$status_list" show="status" />
-                {% include 'base/components/form_select_option.html' with options=statuses slected=form.initial.status %}
+                {% include 'base/components/form_select_option.html' with options=statuses selected=form.initial.status %}
             </select>
         </div>
         {% if form.errors.status %}
@@ -71,7 +71,7 @@
         <div class="input-group mb-1 mr-sm-1">
             <select class="form-control" name="read_status">
                 <x-form-select-options :options="$read_status_list" show="read_status" />
-                {% include 'base/components/form_select_option.html' with options=read_statuses slected=form.initial.read_status %}
+                {% include 'base/components/form_select_option.html' with options=read_statuses selected=form.initial.read_status %}
             </select>
         </div>
         {% if form.errors.read_status %}

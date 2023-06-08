@@ -9,6 +9,9 @@
         <a href="{% url 'bookmark-add' %}" class="text-danger"><i class="fas fa-bookmark"></i></a>
         <!-- @endauth -->
     </h2>
+
+    {% include 'base/bookmarks/filter-form.html' %}
+
     <p>Stories: <span class="text-danger">{{bookmarks.total}}</span></p>
 
     {% include 'paginator.html' with paginator=bookmarks %}

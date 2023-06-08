@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import Categories, Statuses, ReadStatuses, Websites, Bookmarks
@@ -23,6 +24,7 @@ def home(request):
     }
     return render(request, 'base/bookmarks/index.html', context)
 
+@login_required(login_url='login')
 def createBookmark(request):
     form = BookmarkForm()
 
@@ -42,6 +44,7 @@ def createBookmark(request):
     }
     return render(request, 'base/bookmarks/create.html', context)
 
+@login_required(login_url='login')
 def updateBookmark(request, pk):
     bookmark = Bookmarks.objects.get(id=pk)
     form = BookmarkForm()
@@ -63,6 +66,7 @@ def updateBookmark(request, pk):
     }
     return render(request, 'base/bookmarks/update.html', context)
 
+@login_required(login_url='login')
 def deleteBookmark(request, pk):
     bookmark = Bookmarks.objects.get(id=pk)
     if request.method == 'POST':
@@ -76,6 +80,7 @@ def deleteBookmark(request, pk):
     }
     return render(request, 'delete.html', context)
 
+@login_required(login_url='login')
 def websites(request):
     context = {
         'title': "Website List",
@@ -106,6 +111,7 @@ def loginPage(request):
     }
     return render(request, 'base/users/login.html', context)
 
+@login_required(login_url='login')
 def logoutUser(request):
     if request.method == 'POST':
         messages.warning(request, 'You have been logged out!')

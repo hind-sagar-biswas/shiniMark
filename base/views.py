@@ -70,6 +70,7 @@ def createBookmark(request):
         print(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Bookmark created successfully')
             return redirect('root')
 
     context = {
@@ -91,6 +92,7 @@ def updateBookmark(request, pk):
         print(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Bookmark updated successfully')
             return redirect('root')
 
     context = {
@@ -130,7 +132,7 @@ def loginPage(request):
         return redirect('root')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
         try:

@@ -12,7 +12,7 @@
 
     {% include 'base/bookmarks/filter-form.html' %}
 
-    <p>Stories: <span class="text-danger">{{bookmarks.total}}</span></p>
+    <p>Total <span class="text-danger">{{bookmarks.total}}</span> stories found...</p>
 
     {% include 'paginator.html' with paginator=bookmarks %}
 

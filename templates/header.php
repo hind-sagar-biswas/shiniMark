@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/c9fec141b0.js" crossorigin="anonymous"></script>
 
     <!-- style -->
     <link rel="stylesheet" href="./assets/css/style.css">

@@ -5,7 +5,9 @@ require './templates/navbar.php';
 require './templates/forms/login.php';
 ?>
 <div id="filter-form-container"></div>
-<div id="data-container" class="container-fluid mx-auto table-center"></div>
+<div class="container-fluid mx-auto">
+    <div class="row" id="data-container"></div>
+</div>
 
 
 <?php

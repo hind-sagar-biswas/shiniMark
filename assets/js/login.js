@@ -1,6 +1,6 @@
 function checkLogin() {
-	if (loginData != "null" && loginData == "404") {
-		loggedIn = "404";
+	if (loginData != "null" && loginData == "1") {
+		loggedIn = "1";
 		loginBtnCont.style.display = "none";
 		logoutBtnCont.style.display = "block";
 		allBtn.style.display = "block";
@@ -36,11 +36,11 @@ function tryLogin(user, password) {
 			alert("Invalid usernaame or password! Try again.......");
 		} else {
 			if (typeof Storage !== "undefined") {
-				localStorage.setItem("loginData", "404");
+				localStorage.setItem("loginData", "1");
 				loginData = localStorage.getItem("loginData");
 				checkLogin();
 			} else {
-				loggedIn = "404";
+				loggedIn = "1";
 			}
 			if (showData) fetchBookmarksData(where, order, loggedIn);
 			if (showData) displayFilterform(loggedIn);

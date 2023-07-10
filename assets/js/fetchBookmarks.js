@@ -8,11 +8,10 @@ async function fetchBookmarks(body) {
 			},
 			body: body,
 		});
-		const data = await response.json();
-		// Process the retrieved metadata data
-		console.log(data);
+		// console.log(await response.text());
+		return await response.json();
 	} catch (error) {
-		// Handle any errors that occur during the request
-		console.error(error);
+		console.error(error)
+		return null;
 	}
 }

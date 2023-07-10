@@ -7,8 +7,7 @@ a {
 }
 
 .mngLink {
-  color: #17a2b8;
-  font-weight: bold;
+  color: #dc3545;
 }
 .mngLink:hover {
   color: rgb(227, 186, 4);

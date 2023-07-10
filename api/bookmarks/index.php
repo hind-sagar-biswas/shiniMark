@@ -17,6 +17,10 @@ if ($_POST['get_data'] == 1) {
 
     $where_clause = ($_POST['where_clause'] == 'none') ? ' ' : $_POST['where_clause'];
 
+    if ($_POST['restriction'] == 0) {
+        $where_clause = ($where_clause == ' ') ? ' WHERE c.restriction = 0 ' : $where_clause . ' AND c.restriction = 0 ';
+    }
+
     $bottomLimit = ($page - 1) * 50;
     $topLimit = $page * 50;
     $limitClause = " LIMIT $bottomLimit, $topLimit";
@@ -26,7 +30,7 @@ if ($_POST['get_data'] == 1) {
 
     $baseQuery = $mark->getBaseQuery();
     $query = $mark->getQuery($baseQuery, $where_clause, $_POST['order_clause'], $limitClause);
-    $queryForCount = $mark->getQuery('SELECT id FROM bookmarks AS b ', $where_clause, $_POST['order_clause'], '');
+    $queryForCount = $mark->getQuery($baseQuery, $where_clause, $_POST['order_clause'], '');
 
     $bookmarks = $mark->getBookmarkList($query);
     $bookmarksCount = $mark->getBookmarkCount($queryForCount);
@@ -34,7 +38,8 @@ if ($_POST['get_data'] == 1) {
     $data = [
         "bookmarks" => $bookmarks,
         "total" => $bookmarksCount,
-        "page" => $page
+        "page" => $page,
+        "query" => $query,
     ];
 
     echo json_encode($data, JSON_PRETTY_PRINT);

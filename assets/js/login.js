@@ -26,6 +26,7 @@ function logout() {
 	}
 	loggedIn = "0";
 
+	location.reload();
 	if (showData) fetchBookmarksData(where, order, loggedIn);
 	if (showData) displayFilterform(loggedIn);
 }
@@ -44,6 +45,8 @@ function tryLogin(user, password) {
 			}
 			if (showData) fetchBookmarksData(where, order, loggedIn);
 			if (showData) displayFilterform(loggedIn);
+
+			location.reload();
 		}
 	};
 	xhttp.open("POST", "login.php");

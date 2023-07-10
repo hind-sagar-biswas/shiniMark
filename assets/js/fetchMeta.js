@@ -8,11 +8,9 @@ async function fetchMetadata(url) {
 			},
 			body: `url=${encodeURIComponent(url)}`,
 		});
-		const data = await response.json();
-		// Process the retrieved metadata data
-		console.log(data);
+		return await response.json();
 	} catch (error) {
 		// Handle any errors that occur during the request
-		console.error(error);
+		// console.error(error);
 	}
 }

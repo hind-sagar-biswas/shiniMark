@@ -16,9 +16,14 @@ if (isset($_POST['get-filterform'])) {
 <div class="container shadow p-1 border " id="fp">
     <center>
         <!-- class="form-inline" -->
-        <form action="" method="post" onsubmit="return blockSubmit();" onchange="filterData()" id="filter-form" name="filter-form">
+        <form action="" method="post" onsubmit="return blockSubmit()" id="filter-form" name="filter-form">
             <div class="input-group mb-1">
-                <input type="text" class="form-control" name="search" oninput="filterData()" placeholder="Search">
+                <input type="text" class="form-control" name="search" placeholder="Search">
+                <div class="input-group-append">
+                    <button type="button" name="filter" class="btn btn-danger" onclick="filterData()">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                </div>
                 <div class="input-group-append">
                     <button type="button" name="filtered" class="btn btn-danger" onclick="getDefault()">
                         <i class="fas fa-undo"></i>
@@ -94,7 +99,7 @@ if (isset($_POST['get-filterform'])) {
                 <div class=" btn-group">
                     <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="sort">
                         <div class="dropdown-menu">
-                            <option selected class="dropdown-item" value="id" hidden>SORT BY</option>
+                            <option selected class="dropdown-item" value="id" hidden>SORT</option>
                             <option class="dropdown-item" value="update_time">DEFAULT</option>
                             <option class="dropdown-item" value="update_time">TIME</option>
                             <option class="dropdown-item" value="id">ADDED</option>
@@ -108,7 +113,7 @@ if (isset($_POST['get-filterform'])) {
                 <div class="btn-group">
                     <select type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" name="order">
                         <div class="dropdown-menu">
-                            <option selected class="dropdown-item" value="DESC" hidden>ORDER BY</option>
+                            <option selected class="dropdown-item" value="DESC" hidden>ORDER</option>
                             <option value="ASC" class="dropdown-item">ASC</option>
                             <option value="DESC" class="dropdown-item">DESC</option>
                         </div>

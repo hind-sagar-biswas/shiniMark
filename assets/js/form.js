@@ -1,8 +1,6 @@
 function displayFilterform(loggedState) {
 	xhttp.onload = function () {
-		document.getElementById("filter-form-container").innerHTML =
-			this.responseText;
-		fetchBookmarksData(where, order, loggedIn);
+		document.getElementById("filter-form-container").innerHTML = this.responseText;
 	};
 	xhttp.open("POST", "filterform.php");
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -23,6 +21,7 @@ function blockSubmit() {
 }
 
 function filterData() {
+
 	getFormData();
 	heading = "FILTERED BOOKMARKS";
 
@@ -92,5 +91,4 @@ function getDefault() {
 	where = "";
 	order = " ORDER BY b.id DESC ";
 	fetchBookmarksData(where, order, loggedIn);
-	displayFilterform(loggedIn);
 }

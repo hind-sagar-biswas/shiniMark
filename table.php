@@ -89,89 +89,89 @@ if ($_POST['get_data'] == 1) {
                         </td>
                     </tr>
                     <?php } else {
-                    foreach ($bookmarks as $bookmark) { 
+                    foreach ($bookmarks as $bookmark) {
                         if (($restriction == 0 && $bookmark['restriction'] == 0) || $restriction == 404) { ?>
-                        <tr>
-                            <!-- Reading status badges -->
-                            <td>
-                                <?php
-                                $badgeStyle = 'primary';
-                                $badgeText = '';
-
-                                if ($bookmark['current'] == 0) {
-                                    $badgeStyle = 'danger';
-                                    $badgeText = '<i class="fas fa-pause"></i>';
-                                } elseif ($bookmark['current'] == $bookmark['latest']) {
-                                    $badgeStyle = 'secondary';
-                                    $badgeText = '<i class="fas fa-check"></i>';
-                                } else {
-                                    $badgeStyle = 'warning';
-                                    $badgeText = '<i class="fas fa-play"></i>';
-                                }
-
-                                echo "<span class='badge badge-$badgeStyle'>$badgeText</span>";
-                                ?>
-                            </td>
-
-                            <!-- Bookmark titles -->
-                            <td align="left">
-                                &nbsp;&nbsp;
-                                <?php if ($bookmark['link'] != null || !empty($bookmark['link'])) {
-                                    // echo var_dump(parse_url($bookmark['link']));
-                                    echo "<a href='" . $bookmark['link'] . "' target='_blank' class='mngLink'>" . $bookmark['name'] . "</a>";
-                                } else {
-                                    echo $bookmark['name'];
-                                } ?>
-                            </td>
-
-                            <!-- Category column -->
-                            <td class="<?php if($bookmark['restriction']) echo 'text-danger'; ?>">
-                                <?php echo $bookmark['category']; ?>
-                            </td>
-
-                            <!-- Current and Latest Chapters -->
-                            <td><?php echo $bookmark['current']; ?></td>
-                            <td><?php echo $bookmark['latest']; ?></td>
-
-                            <!-- Status column -->
-                            <?php
-                            $statusTheme = 'primary';
-                            switch ($bookmark['status']) {
-                                case 'Completed':
-                                    $statusTheme = 'success';
-                                    break;
-                                case 'Ongoing':
-                                    $statusTheme = 'info';
-                                    break;
-                                case 'Season End':
-                                    $statusTheme = 'warning';
-                                    break;
-                                case 'Axed':
-                                    $statusTheme = 'danger';
-                                    break;
-                            }
-                            ?>
-                            <td class="<?php echo "table-$statusTheme text-$statusTheme"; ?>">
-                                <?php echo $bookmark['status']; ?>
-                            </td>
-                            <?php if ($restriction == 404) { ?>
+                            <tr>
+                                <!-- Reading status badges -->
                                 <td>
-                                    <div class='btn-group mx auto text-center'>
-                                        <button type='button' class='btn btn-sm btn-danger dropdown-toggle' data-toggle='dropdown'>
-                                            <i class='fas fa-tasks'></i>
-                                        </button>
-                                        <div class='dropdown-menu p-1' style='border:none; padding:0'>
-                                            <a class='btn btn-sm btn-secondary' href="action.php?act=update&tar=bookmark&id=<?php echo $bookmark['id'] ?>">
-                                                <i class='fas fa-edit'></i>
-                                            </a>
-                                            <a class='btn btn-sm btn-danger' href="run.php?target=bookmark&del=<?php echo $bookmark['id'] ?>">
-                                                <i class='fa fa-trash' aria-hidden='true'></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <?php
+                                    $badgeStyle = 'primary';
+                                    $badgeText = '';
+
+                                    if ($bookmark['current'] == 0) {
+                                        $badgeStyle = 'danger';
+                                        $badgeText = '<i class="fas fa-pause"></i>';
+                                    } elseif ($bookmark['current'] == $bookmark['latest']) {
+                                        $badgeStyle = 'secondary';
+                                        $badgeText = '<i class="fas fa-check"></i>';
+                                    } else {
+                                        $badgeStyle = 'warning';
+                                        $badgeText = '<i class="fas fa-play"></i>';
+                                    }
+
+                                    echo "<span class='badge badge-$badgeStyle'>$badgeText</span>";
+                                    ?>
                                 </td>
-                            <?php } ?>
-                        </tr>
+
+                                <!-- Bookmark titles -->
+                                <td align="left">
+                                    &nbsp;&nbsp;
+                                    <?php if ($bookmark['link'] != null || !empty($bookmark['link'])) {
+                                        // echo var_dump(parse_url($bookmark['link']));
+                                        echo "<a href='" . $bookmark['link'] . "' target='_blank' class='mngLink'>" . $bookmark['name'] . "</a>";
+                                    } else {
+                                        echo $bookmark['name'];
+                                    } ?>
+                                </td>
+
+                                <!-- Category column -->
+                                <td class="<?php if ($bookmark['restriction']) echo 'text-danger'; ?>">
+                                    <?php echo $bookmark['category']; ?>
+                                </td>
+
+                                <!-- Current and Latest Chapters -->
+                                <td><?php echo $bookmark['current']; ?></td>
+                                <td><?php echo $bookmark['latest']; ?></td>
+
+                                <!-- Status column -->
+                                <?php
+                                $statusTheme = 'primary';
+                                switch ($bookmark['status']) {
+                                    case 'Completed':
+                                        $statusTheme = 'success';
+                                        break;
+                                    case 'Ongoing':
+                                        $statusTheme = 'info';
+                                        break;
+                                    case 'Season End':
+                                        $statusTheme = 'warning';
+                                        break;
+                                    case 'Axed':
+                                        $statusTheme = 'danger';
+                                        break;
+                                }
+                                ?>
+                                <td class="<?php echo "table-$statusTheme text-$statusTheme"; ?>">
+                                    <?php echo $bookmark['status']; ?>
+                                </td>
+                                <?php if ($restriction == 404) { ?>
+                                    <td>
+                                        <div class='btn-group mx auto text-center'>
+                                            <button type='button' class='btn btn-sm btn-danger dropdown-toggle' data-toggle='dropdown'>
+                                                <i class='fas fa-tasks'></i>
+                                            </button>
+                                            <div class='dropdown-menu p-1' style='border:none; padding:0'>
+                                                <a class='btn btn-sm btn-secondary' href="action.php?act=update&tar=bookmark&id=<?php echo $bookmark['id'] ?>">
+                                                    <i class='fas fa-edit'></i>
+                                                </a>
+                                                <a class='btn btn-sm btn-danger' href="run.php?target=bookmark&del=<?php echo $bookmark['id'] ?>">
+                                                    <i class='fa fa-trash' aria-hidden='true'></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                <?php } ?>
+                            </tr>
 
                 <?php
                         }

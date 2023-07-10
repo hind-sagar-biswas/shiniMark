@@ -1,5 +1,5 @@
 <?php
-require './db/config.php';
+require __DIR__ . './db/config.php';
 
 class ShiniMark extends Config
 {

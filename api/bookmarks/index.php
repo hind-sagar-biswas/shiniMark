@@ -35,10 +35,14 @@ if ($_POST['get_data'] == 1) {
     $bookmarks = $mark->getBookmarkList($query);
     $bookmarksCount = $mark->getBookmarkCount($queryForCount);
 
+    $total_pages = ceil($bookmarksCount / 50);
+
     $data = [
         "bookmarks" => $bookmarks,
-        "total" => $bookmarksCount,
-        "page" => $page,
+        "stories" => count($bookmarks),
+        "total_stories" => $bookmarksCount,
+        "page_no" => $page,
+        "pages" => $total_pages,
         "query" => $query,
     ];
 

@@ -17,12 +17,12 @@ $data = json_decode($_POST['data'], true);
             </li>
         <?php else : ?>
             <li class="page-item">
-                <a class="page-link text-danger" onclick="pageChange(1)" rel="first" aria-label="First">
+                <a class="page-link text-danger" href="?page=1" rel="first" aria-label="First">
                     <i class="fa fa-angle-double-left"></i>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-danger" onclick="pageChange(<?= $data['current'] - 1 ?>)" rel="prev" aria-label="Previous">
+                <a class="page-link text-danger" href="?page=<?= $data['current'] - 1 ?>" rel="prev" aria-label="Previous">
                     <i class="fa fa-angle-left"></i>
                 </a>
             </li>
@@ -31,7 +31,7 @@ $data = json_decode($_POST['data'], true);
             <?php if ($i == $data['current']) : ?>
                 <li class="page-item" aria-current="page"><span class="page-link text-white bg-danger"><?= $data['current'] ?></span></li>
             <?php else : ?>
-                <li class="page-item"><a class="page-link text-danger" onclick="pageChange(<?= $i ?>)"><?= $i ?></a></li>
+                <li class="page-item"><a class="page-link text-danger" href="?page=<?= $i ?>"><?= $i ?></a></li>
             <?php endif; ?>
         <?php endfor; ?>
 
@@ -48,12 +48,12 @@ $data = json_decode($_POST['data'], true);
             </li>
         <?php else : ?>
             <li class="page-item">
-                <a class="page-link text-danger" onclick="pageChange(<?= $data['current'] + 1 ?>)" rel="next" aria-label="Next">
+                <a class="page-link text-danger" href="?page=<?= $data['current'] + 1 ?>" rel="next" aria-label="Next">
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
             <li class="page-item">
-                <a class="page-link text-danger" onclick="pageChange(<?= $data['pages'] ?>)" rel="last" aria-label="Last">
+                <a class="page-link text-danger" href="?page=<?= $data['pages'] ?>" rel="last" aria-label="Last">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
             </li>

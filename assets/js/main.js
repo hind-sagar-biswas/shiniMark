@@ -98,11 +98,6 @@ function paginate(data) {
 	xhttp.send(`data=${data}`);
 }
 
-function pageChange(page) {
-	pageNum = page;
-	fetchBookmarksData(where, order, loggedIn);
-}
-
 /// RUNS
 checkLogin();
 if (showData) {

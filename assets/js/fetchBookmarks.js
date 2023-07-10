@@ -1,4 +1,4 @@
-async function fetchBookmarks(body) {
+async function fetchBookmarks(body, debug = 0) {
 	const API_URL = `http://localhost:8888/shiniMark/api/bookmarks/`;
 	try {
 		const response = await fetch(API_URL, {
@@ -8,7 +8,8 @@ async function fetchBookmarks(body) {
 			},
 			body: body,
 		});
-		// console.log(await response.text());
+		console.log(body);
+		if (debug) console.log(await response.text());
 		return await response.json();
 	} catch (error) {
 		console.error(error)

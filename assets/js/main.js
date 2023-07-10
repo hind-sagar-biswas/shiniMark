@@ -4,9 +4,9 @@ async function fetchBookmarksData(where_clause, order_clause, loggedState) {
 	if (where_clause == "") where_clause = "none";
 	let send_clause = `get_data=1&where_clause=${where_clause}&order_clause=${order_clause}&heading=${heading}&restriction=${loggedState}&page=${pageNum}`;
 	if (DEBUG) console.log(send_clause);
-	const { bookmarks, page, total, query } = await fetchBookmarks(send_clause);
 
-	if (DEBUG) console.log(query);
+	const { bookmarks, stories, total_stories, current, pages, query } = await fetchBookmarks(send_clause);
+	paginate({ stories, total_stories, current, pages });
 
 	document.getElementById("data-container").innerHTML = "";
 	for (let index = 0; index < bookmarks.length; index++) {
@@ -82,6 +82,20 @@ function getImgData(metadata) {
 		}
 	}
 	return found ? found.content : null;
+}
+
+function paginate(data) {
+	console.log(data);
+	data = encodeURIComponent(JSON.stringify(data));
+	xhttp.onload = function () {
+		const slots = document.querySelectorAll('.pagination-slot');
+		slots.forEach(slot => {
+			slot.innerHTML = this.responseText;
+		});
+	};
+	xhttp.open("POST", "./templates/components/pagination.php");
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(`data=${data}`);
 }
 
 function pageChange(page) {

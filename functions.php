@@ -164,11 +164,11 @@ class ShiniMark extends Config
         return array('Something went wrong');
     }
 
-    public function getCategoryList($restriction = 404)
+    public function getCategoryList($restriction = 1)
     {
         $categoryList = array();
         $query = "SELECT * FROM $this->categoryTable";
-        if ($restriction != 404) $query = $query . " WHERE restriction = '$restriction'";
+        if ($restriction != 1) $query = $query . " WHERE restriction = '$restriction'";
         if (mysqli_query($this->conn, $query)) {
             $categories = mysqli_query($this->conn, $query);
             while ($category = mysqli_fetch_assoc($categories)) {
@@ -190,11 +190,11 @@ class ShiniMark extends Config
         } return False;
     }
 
-    public function getWebsiteList($restriction = 404)
+    public function getWebsiteList($restriction = 1)
     {
         $websiteList = array();
         $query = "SELECT name, url, type, restriction FROM websites";
-        if ($restriction != 404) $query = "$query WHERE restriction = '$restriction'";
+        if ($restriction != 1) $query = "$query WHERE restriction = '$restriction'";
         $query = "$query ORDER BY name";
         if (mysqli_query($this->conn, $query)) {
             $websites = mysqli_query($this->conn, $query);
